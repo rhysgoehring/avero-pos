@@ -1,6 +1,10 @@
 import React from "react";
 import { createGlobalStyle } from "styled-components";
 
+import Navbar from "./components/Navbar/Navbar";
+
+import { LIGHT_GREY, DARK_BLUE } from "./styles/colors";
+
 const GlobalStyle = createGlobalStyle`
   *,
   *::before,
@@ -16,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: orange;
+    background-color: ${LIGHT_GREY};
   }
 `;
 
@@ -24,21 +28,7 @@ const App = () => {
   return (
     <React.Fragment>
       <GlobalStyle />
-      <div className="App">
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Navbar />
     </React.Fragment>
   );
 };
