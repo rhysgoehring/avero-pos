@@ -1,14 +1,20 @@
 import styled from "styled-components";
 
+import { NavLink } from "react-router-dom";
+
+import { MEDIUM_GREY } from "../../styles/colors";
+
 const Header = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
+  z-index: 9999;
   width: 100%;
   background-color: transparent;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5rem;
+  margin-bottom: 5rem;
 `;
 
 const NavWrapper = styled.nav`
@@ -32,6 +38,17 @@ const NavItem = styled.li`
   margin: 0rem 5rem;
 `;
 
+const Link = styled(NavLink)`
+  font-size: 1.6rem;
+  color: ${MEDIUM_GREY};
+  margin: 0rem 5rem;
+  text-decoration: none;
+
+  &.active {
+    color: white;
+  }
+`;
+
 const Logo = styled.a`
   color: white;
   text-decoration: none;
@@ -40,4 +57,4 @@ const Logo = styled.a`
   letter-spacing: 0.3rem;
 `;
 
-export { Header, NavWrapper, NavList, NavItem, Logo };
+export { Header, NavWrapper, NavList, NavItem, Logo, Link };

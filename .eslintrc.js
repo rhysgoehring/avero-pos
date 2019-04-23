@@ -8,7 +8,9 @@ module.exports = {
         extensions: ['.js', '.jsx']
       }
     ],
-    'prettier/prettier': 'error'
+    'prettier/prettier': 'error',
+    'no-console': 0,
+    'consistent-return': 0
   },
   env: {
     browser: true,

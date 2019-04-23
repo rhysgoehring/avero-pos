@@ -1,35 +1,29 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
+import { Provider } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Navbar from "./components/Navbar/Navbar";
+import store from "./store";
 
-import { LIGHT_GREY, DARK_BLUE } from "./styles/colors";
+import Navbar from "./components/Navbar";
+import Tables from "./pages/Tables";
+import Checks from "./pages/Checks";
 
-const GlobalStyle = createGlobalStyle`
-  *,
-  *::before,
-  *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-}
-  html {
-    box-sizing: border-box;
-    font-size: 62.5%;
-    font-family: Lato;
-  }
-
-  body {
-    background-color: ${LIGHT_GREY};
-  }
-`;
+import GlobalStyle from "./styles/globalStyle";
 
 const App = () => {
   return (
-    <React.Fragment>
+    <Provider store={store}>
       <GlobalStyle />
-      <Navbar />
-    </React.Fragment>
+      <Router>
+        <React.Fragment>
+          <Navbar />
+          <Switch>
+            <Route exact path="/" component={Tables} />
+            <Route path="/checks" component={Checks} />
+          </Switch>
+        </React.Fragment>
+      </Router>
+    </Provider>
   );
 };
 
