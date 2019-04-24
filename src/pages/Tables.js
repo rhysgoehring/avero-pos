@@ -2,7 +2,14 @@ import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 import { getTables } from "../actions/index";
-import { Section, Container } from "../styles/layout";
+import {
+  Section,
+  Container,
+  GridContainer,
+  Column,
+  Row
+} from "../styles/layout";
+import { SubHeading } from "../styles/typography";
 import { BASE_URL, requestConfig } from "../config";
 
 class Tables extends React.Component {
@@ -46,7 +53,21 @@ class Tables extends React.Component {
   render() {
     return (
       <Section>
-        <Container>{this.renderTables()}</Container>
+        <Container>
+          <SubHeading>Tables</SubHeading>
+          <GridContainer>
+            <Column col="12">
+              <Row>
+                <SubHeading>Row 1</SubHeading>
+              </Row>
+            </Column>
+            <Column col="12">
+              <Row>
+                <SubHeading>Row 2</SubHeading>
+              </Row>
+            </Column>
+          </GridContainer>
+        </Container>
       </Section>
     );
   }

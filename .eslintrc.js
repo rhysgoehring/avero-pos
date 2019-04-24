@@ -12,7 +12,8 @@ module.exports = {
     'no-console': 0,
     'consistent-return': 0,
     'react/destructuring-assignment': 0,
-    'react/prop-types': 0
+    'react/prop-types': 0,
+    'spaced-comment': 0,
   },
   env: {
     browser: true,
