@@ -13,8 +13,6 @@ const Header = styled.header`
   background-color: transparent;
   justify-content: center;
   align-items: center;
-  padding-bottom: 5rem;
-  margin-bottom: 5rem;
 `;
 
 const NavWrapper = styled.nav`

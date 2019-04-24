@@ -7,12 +7,10 @@ const Container = styled.div`
   width: 100%;
   justify-content: center;
   align-items: center;
-  border: 2px solid black;
+  border: 1px solid black;
 `;
 
-const Section = styled.section`
-  padding-top: 9rem;
-  padding-bottom: 8rem;
+const Section = styled.main`
   padding-right: 2rem;
   padding-left: 2rem;
   position: relative;
@@ -21,6 +19,7 @@ const Section = styled.section`
   align-items: center;
   justify-content: center;
   height: 100%;
+  margin-block-start: 7rem;
 
   &::before {
     position: absolute;

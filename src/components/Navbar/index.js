@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { Header, NavWrapper, NavList, NavItem, Logo, Link } from "./styled";
+import { Header, NavWrapper, NavList, NavItem, Logo, Link } from "./styles";
 
 const Navbar = () => (
   <Header>

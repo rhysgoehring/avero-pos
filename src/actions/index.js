@@ -1,26 +1,17 @@
 import axios from "axios";
 import { GET_TABLES, GET_ITEMS } from "./types";
-
-const requestConfig = {
-  headers: {
-    Authorization:
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJhNGFlMmM0LTZlNWMtNDhlMy04ZDRlLTFkNzhjNWE3MDZhZiIsIm5hbWUiOiJSaHlzIn0.FCcG29CTjqCaWxQfpymhyuS0pv8krDQu15fKAQRjVFo"
-  }
-};
+import { BASE_URL, requestConfig } from "../config";
 
 const getTables = () => async dispatch => {
   try {
-    const { data } = await axios.get(
-      "https://check-api.herokuapp.com/tables",
-      requestConfig
-    );
-    console.log("get tables data: ", data);
+    const { data } = await axios.get(`${BASE_URL}/tables`, requestConfig);
+
     return dispatch({
       type: GET_TABLES,
       data
     });
   } catch (error) {
-    console.log("get tables error", error);
+    console.error("get tables error", error);
   }
 };
 

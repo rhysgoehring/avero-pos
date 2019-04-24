@@ -1,6 +1,6 @@
 const AVERO_BLUE = "#25BBEC";
 const AVERO_ORANGE = "#F39C15";
-const AVERO_BTN_GREEN = "#2ECC71";
+const AVERO_GREEN = "#2ECC71";
 const RED = "#EA3527";
 
 const AVERO_ICON_GREEN = "#56D1B5";
@@ -16,7 +16,7 @@ const DARK_BLUE = "#192631";
 export {
   AVERO_BLUE,
   AVERO_ORANGE,
-  AVERO_BTN_GREEN,
+  AVERO_GREEN,
   RED,
   AVERO_ICON_GREEN,
   AVERO_ICON_RED,
