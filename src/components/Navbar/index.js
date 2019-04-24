@@ -7,7 +7,7 @@ const Navbar = () => (
     <NavWrapper>
       <NavList>
         <Link exact to="/">
-          Tables
+          View Tables
         </Link>
 
         <NavItem>
@@ -15,7 +15,7 @@ const Navbar = () => (
         </NavItem>
 
         <Link exact to="/checks">
-          Checks
+          View All Checks
         </Link>
       </NavList>
     </NavWrapper>
