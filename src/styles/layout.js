@@ -8,7 +8,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
 `;
 
 const Section = styled.main`
@@ -21,15 +20,6 @@ const Section = styled.main`
   justify-content: center;
   height: 100%;
   margin-block-start: 7rem;
-
-  &::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-  }
 `;
 
 /*----------------------------------GRID---------------------------------------------------------*/
@@ -55,9 +45,6 @@ const GridContainer = styled.div`
   margin-right: auto;
   margin-left: auto;
   width: 100%;
-  max-width: 114rem;
-
-  border: 2px solid black;
 `;
 
 const Row = styled.div`
@@ -66,18 +53,16 @@ const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-
-  border: 1px solid red;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
 `;
 
 const Column = styled.div`
-  padding: 2rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-
-  border: 2px solid green;
 
   ${({ col }) => col && getFlex(col)};
   ${({ col }) => col && getWidth(col)};

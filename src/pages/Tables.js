@@ -10,6 +10,7 @@ import {
   Row
 } from "../styles/layout";
 import { SubHeading } from "../styles/typography";
+import TableCard from "../components/TableCard";
 import { BASE_URL, requestConfig } from "../config";
 
 class Tables extends React.Component {
@@ -54,18 +55,40 @@ class Tables extends React.Component {
     return (
       <Section>
         <Container>
-          <SubHeading>Tables</SubHeading>
+          {/* <SubHeading>Tables</SubHeading> */}
           <GridContainer>
-            <Column col="12">
-              <Row>
-                <SubHeading>Row 1</SubHeading>
-              </Row>
-            </Column>
-            <Column col="12">
-              <Row>
-                <SubHeading>Row 2</SubHeading>
-              </Row>
-            </Column>
+            <Row>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+              <Column col="2.4">
+                <TableCard />
+              </Column>
+            </Row>
           </GridContainer>
         </Container>
       </Section>

@@ -5,10 +5,10 @@ import { NavLink } from "react-router-dom";
 import { MEDIUM_GREY } from "../../styles/colors";
 
 const Header = styled.header`
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 999;
   width: 100%;
   background-color: transparent;
   justify-content: center;
