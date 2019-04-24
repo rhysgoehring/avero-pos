@@ -12,6 +12,13 @@ import {
 import { SubHeading } from "../styles/typography";
 import TableCard from "../components/TableCard";
 import { BASE_URL, requestConfig } from "../config";
+import {
+  AVERO_GREEN,
+  AVERO_ORANGE,
+  AVERO_BLUE,
+  RED,
+  MEDIUM_GREY
+} from "../styles/colors";
 
 class Tables extends React.Component {
   constructor(props) {
@@ -47,7 +54,15 @@ class Tables extends React.Component {
     const allTables = this.state.openTables.concat(this.state.closedTables);
     console.log("allTables", allTables);
     return allTables.map(table => {
-      return <h1 key={table.id}>{table.number}</h1>;
+      console.log("table", table);
+      return (
+        <Column col="2.4" key={table.id}>
+          <TableCard
+            bgColor={MEDIUM_GREY}
+            cardTitle={`Table ${table.number}`}
+          />
+        </Column>
+      );
     });
   }
 
@@ -58,7 +73,8 @@ class Tables extends React.Component {
           {/* <SubHeading>Tables</SubHeading> */}
           <GridContainer>
             <Row>
-              <Column col="2.4">
+              {this.renderTables()}
+              {/* <Column col="2.4">
                 <TableCard />
               </Column>
               <Column col="2.4">
@@ -84,10 +100,7 @@ class Tables extends React.Component {
               </Column>
               <Column col="2.4">
                 <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column>
+              </Column> */}
             </Row>
           </GridContainer>
         </Container>
