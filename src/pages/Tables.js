@@ -50,14 +50,20 @@ class Tables extends React.Component {
     this.setState({ menuItems: data });
   }
 
+  checkIfTableIsOpen(table) {
+    if (this.state.openTables.includes(table)) {
+      return false;
+    }
+    return true;
+  }
+
   renderTables() {
     const allTables = this.state.openTables.concat(this.state.closedTables);
-    console.log("allTables", allTables);
     return allTables.map(table => {
-      console.log("table", table);
       return (
         <Column col="2.4" key={table.id}>
           <TableCard
+            tableIsOpen={this.checkIfTableIsOpen(table)}
             bgColor={MEDIUM_GREY}
             cardTitle={`Table ${table.number}`}
           />
@@ -70,38 +76,8 @@ class Tables extends React.Component {
     return (
       <Section>
         <Container>
-          {/* <SubHeading>Tables</SubHeading> */}
           <GridContainer>
-            <Row>
-              {this.renderTables()}
-              {/* <Column col="2.4">
-                <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column>
-              <Column col="2.4">
-                <TableCard />
-              </Column> */}
-            </Row>
+            <Row>{this.renderTables()}</Row>
           </GridContainer>
         </Container>
       </Section>
