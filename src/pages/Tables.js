@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import { getTables } from "../actions/index";
+import { getTables, startNewCheck } from "../actions/index";
 import {
   Section,
   Container,
@@ -32,8 +32,37 @@ class Tables extends React.Component {
   }
 
   componentDidMount() {
-    this.fetchTables();
+    const { openTables, closedTables } = this.props.tables;
+
+    if (openTables.length > 0 || closedTables.length > 0) {
+      this.setState({
+        openTables,
+        closedTables
+      });
+    } else {
+      this.fetchTables();
+    }
+    // if (openTables.length === 0 || closedTables.length === 0) {
+    //   this.fetchTables();
+    // }
+    // this.fetchTables();
+    console.log("this.state", this.state);
     this.fetchMenuItems();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (
+      this.props.tables !== nextProps.tables ||
+      this.state.tables !== nextProps.tables ||
+      this.state.tables.openTables !== nextProps.tables.openTables ||
+      this.state.tables.closedTables !== nextProps.tables.closedTables
+    ) {
+      console.log("component received props and changed state");
+      this.setState({
+        openTables: nextProps.tables.openTables,
+        closedTables: nextProps.tables.closedTables
+      });
+    }
   }
 
   async fetchTables() {
@@ -51,21 +80,40 @@ class Tables extends React.Component {
   }
 
   checkIfTableIsOpen(table) {
-    if (this.state.openTables.includes(table)) {
-      return false;
+    if (this.state.closedTables.includes(table)) {
+      return true;
     }
-    return true;
+    return false;
   }
 
+  async newCheckClickHandler(table, index) {
+    const data = await this.props.startNewCheck(table, index);
+    console.log("newCheckClick data on Tables page", data);
+
+    // Remove table from openTables and add table to closedTables
+    // const newOpenTables = [...this.state.openTables];
+    // newOpenTables.splice(index, 1);
+    // this.setState({
+    //   openTables: newOpenTables,
+    //   closedTables: [table, ...this.state.closedTables]
+    // });
+  }
+
+  // async newCheckClickHandler(table, index) {
+  //   await axios.delete(`${BASE_URL}/checks`, requestConfig);
+  // }
+
   renderTables() {
-    const allTables = this.state.openTables.concat(this.state.closedTables);
-    return allTables.map(table => {
+    return this.props.tables.allTables.map((table, index) => {
       return (
-        <Column col="2.4" key={table.id}>
+        <Column col="2.4" key={table.number}>
           <TableCard
             tableIsOpen={this.checkIfTableIsOpen(table)}
-            bgColor={MEDIUM_GREY}
+            bgColor={
+              this.checkIfTableIsOpen(table) ? { MEDIUM_GREY } : { AVERO_GREEN }
+            }
             cardTitle={`Table ${table.number}`}
+            handleNewCheckClick={() => this.newCheckClickHandler(table, index)}
           />
         </Column>
       );
@@ -87,11 +135,12 @@ class Tables extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    tables: state.tables
+    tables: state.tables,
+    checks: state.checks
   };
 }
 
 export default connect(
   mapStateToProps,
-  { getTables }
+  { getTables, startNewCheck }
 )(Tables);

@@ -1,4 +1,5 @@
 const GET_TABLES = "get_tables";
-const GET_ITEMS = "get_items";
+const START_NEW_CHECK = "start_new_check";
+const CLOSE_TABLE = "close_table";
 
-export { GET_TABLES, GET_ITEMS };
+export { GET_TABLES, START_NEW_CHECK, CLOSE_TABLE };
