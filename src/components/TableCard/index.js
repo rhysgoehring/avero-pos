@@ -17,7 +17,7 @@ import {
 const TableCard = props => {
   if (props.tableIsOpen) {
     return (
-      <Card bgColor={props.bgColor}>
+      <Card bgColor={AVERO_GREEN}>
         <CardHeader>
           <CardTitle>{props.cardTitle}</CardTitle>
         </CardHeader>
@@ -39,7 +39,7 @@ const TableCard = props => {
     );
   }
   return (
-    <Card bgColor={props.bgColor}>
+    <Card bgColor={MEDIUM_GREY}>
       <CardHeader>
         <CardTitle>{props.cardTitle}</CardTitle>
       </CardHeader>

@@ -80,7 +80,8 @@ class Tables extends React.Component {
   }
 
   checkIfTableIsOpen(table) {
-    if (this.state.closedTables.includes(table)) {
+    if (this.props.tables.closedTables.includes(table)) {
+      console.log("true");
       return true;
     }
     return false;
@@ -109,9 +110,6 @@ class Tables extends React.Component {
         <Column col="2.4" key={table.number}>
           <TableCard
             tableIsOpen={this.checkIfTableIsOpen(table)}
-            bgColor={
-              this.checkIfTableIsOpen(table) ? { MEDIUM_GREY } : { AVERO_GREEN }
-            }
             cardTitle={`Table ${table.number}`}
             handleNewCheckClick={() => this.newCheckClickHandler(table, index)}
           />

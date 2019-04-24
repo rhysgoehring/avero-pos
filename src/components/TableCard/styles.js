@@ -9,7 +9,9 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  border: 2px solid black;
+  border-width: 1px;
+  border-style: solid;
+  border-color: ${props => props.bgColor};
 `;
 
 const CardHeader = styled.div`
