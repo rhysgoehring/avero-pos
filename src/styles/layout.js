@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components/macro";
 
 const Container = styled.div`
   padding-right: 1.5rem;
@@ -40,29 +40,28 @@ const getFlex = value => {
 };
 
 const GridContainer = styled.div`
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
+  /* padding-right: 1.5rem;
+  padding-left: 1.5rem; */
   margin-right: auto;
   margin-left: auto;
   width: 100%;
 `;
 
 const Row = styled.div`
-  margin-right: -1.5rem;
-  margin-left: -1.5rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  padding-bottom: 2rem;
-  margin-bottom: 2rem;
+  /* padding-bottom: 2rem; */
+  /* margin-bottom: 2rem; */
 `;
 
 const Column = styled.div`
-  padding: 0.5rem;
+  padding: ${({ padding }) => padding || "0.5rem"};
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+  justify-content: ${({ justifyContent }) => justifyContent || "center"};
 
   ${({ col }) => col && getFlex(col)};
   ${({ col }) => col && getWidth(col)};
