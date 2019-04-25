@@ -124,26 +124,15 @@ class Tables extends React.Component {
 
   itemClickHandler = (item) => {
     console.log('item', item);
-    //TODO: Fire Redux Action to 
+    //TODO: Fire Redux Action to
   };
 
   render() {
     return (
       <Section>
-        {/* <Modal
-          showModal={this.state.showItemsModal}
-          handleClose={this.hideItemsModal}
-          modalColor="white"
-          modalWidth="40%"
-          cancelButtonWidth="50%"
-        >
-          {this.state.menuItems.map(item => {
-            return <h1>{item.name}</h1>;
-          })}
-        </Modal> */}
         <AddItemsModal
-          // show={this.state.showItemsModal}
-          show={true}
+          show={this.state.showItemsModal}
+          // show={true}
           close={this.hideItemsModal}
           modalTitle={`Table ${this.state.activeTableNumber}`}
           menuItems={this.state.menuItems}
