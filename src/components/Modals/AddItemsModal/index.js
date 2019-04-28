@@ -33,7 +33,8 @@ const AddItemsModal = ({
   modalTitle,
   menuItems,
   handleItemClick,
-  currentCheckItems
+  currentCheckItems,
+  checkTotal
 }) => (
   <Modal
     showModal={show}
@@ -78,9 +79,13 @@ const AddItemsModal = ({
         </Row>
       </ModalSection>
       <ModalSection alignSelf="start">
-        <ColumnTitle>Current Check:</ColumnTitle>
+        <ColumnTitle>Current Check Total: ${checkTotal}</ColumnTitle>
         {currentCheckItems.map((item, index) => {
+          // TODO: create new unique key
+          console.log("item", item);
+          console.log("index", index);
           const uniqueKey = parseInt(item.id, 10) + index;
+          console.log("unique key", uniqueKey);
           return (
             <ItemRow key={uniqueKey}>
               <ItemName>{item.name}</ItemName>

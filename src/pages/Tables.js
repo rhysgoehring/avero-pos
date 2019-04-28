@@ -61,8 +61,8 @@ class Tables extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (
       this.props.tables !== nextProps.tables ||
-      this.state.tables !== nextProps.tables ||
-      this.state.tables.openTables !== nextProps.tables.openTables
+      this.state.tables !== nextProps.tables
+      // this.state.tables.openTables !== nextProps.tables.openTables
       // this.state.tables.closedTables !== nextProps.tables.closedTables ||
       // this.props.tables.openTables !== nextProps.tables.openTables ||
       // this.props.tables.closedTables !== nextProps.tables.closedTables
@@ -163,12 +163,22 @@ class Tables extends React.Component {
     });
   };
 
+  calculateTotal = () => {
+    if (this.state.activeCheckItems.length > 0) {
+      const total = this.state.activeCheckItems
+        .map(item => parseFloat(item.price, 10))
+        .reduce((a, b) => a + b);
+      return total;
+    }
+  };
+
   render() {
     return (
       <Section>
         <AddItemsModal
           show={this.state.showItemsModal}
           // show={true}
+          checkTotal={this.calculateTotal()}
           close={this.hideItemsModal}
           modalTitle={`Table ${this.state.activeTableNumber}`}
           menuItems={this.state.menuItems}
