@@ -35,6 +35,7 @@ class Tables extends React.Component {
       openTables: [],
       closedTables: [],
       menuItems: [],
+      activeCheckItems: [],
       activeTableId: '',
       activeTableNumber: '',
       activeCheckId: '',
@@ -105,7 +106,7 @@ class Tables extends React.Component {
 
   showItemsModal = table => {
     console.log('showing items modal');
-    // TODO: Use find in actions instead of filter
+
     const checkForTable = this.props.openChecks.find(
       check => check.tableId === table.id
     );
@@ -116,7 +117,8 @@ class Tables extends React.Component {
     this.setState({
       showItemsModal: true,
       activeTableId: table.id,
-      activeCheckId: checkId
+      activeCheckId: checkId,
+      activeCheckItems: checkForTable.orderedItems
     });
     // TODO: Get check by checkId
   };
@@ -155,6 +157,10 @@ class Tables extends React.Component {
     const tableId = this.state.activeTableId;
 
     await this.props.addMenuItem(item, tableId);
+
+    this.setState({
+      activeCheckItems: [item, ...this.state.activeCheckItems]
+    });
   };
 
   render() {
@@ -166,7 +172,7 @@ class Tables extends React.Component {
           close={this.hideItemsModal}
           modalTitle={`Table ${this.state.activeTableNumber}`}
           menuItems={this.state.menuItems}
-          currentCheckItems={this.state.menuItems}
+          currentCheckItems={this.state.activeCheckItems}
           handleItemClick={item => this.itemClickHandler(item)}
         />
         <Container>

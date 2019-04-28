@@ -89,7 +89,12 @@ const closeCheck = table => async (dispatch, getState) => {
     {},
     requestConfig
   );
-  const closedCheck = response.data;
+  const checkResponse = response.data;
+
+  const closedCheck = {
+    ...checkResponse,
+    orderedItems: currentCheck.orderedItems
+  };
 
   dispatch({
     type: OPEN_TABLE,

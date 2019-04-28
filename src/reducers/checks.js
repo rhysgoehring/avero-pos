@@ -35,7 +35,7 @@ export default function(
           check => check.id !== action.checkId
         ),
         // Add check to closedChecks
-        closedChecks: [action.closedCheck, ...state.closedChecks]
+        closedChecks: [...state.closedChecks, action.closedCheck]
       };
     }
     default:
