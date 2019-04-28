@@ -45,24 +45,31 @@ const startNewCheck = (table, index) => async dispatch => {
   }
 };
 
-const addMenuItem = (itemId, tableId) => async (dispatch, getState) => {
+const addMenuItem = (item, tableId) => async (dispatch, getState) => {
   // TODO: Make a function that filters checks by tableId, using this code twice:
   const { checks } = getState();
   const { openChecks } = checks;
-  const currentCheck = openChecks.filter(check => check.tableId === tableId);
-  const checkId = currentCheck[0].id;
+  const currentCheckArr = await openChecks.filter(
+    check => check.tableId === tableId
+  );
+  const currentCheck = currentCheckArr[0];
+  const checkId = currentCheck.id;
+  const itemId = item.id;
+  // Find Index of current check
   try {
     const response = await axios.put(
       `${BASE_URL}/checks/${checkId}/addItem`,
       { itemId },
       requestConfig
     );
-    console.log("!!!addMenuItem response", response);
-    // TODO: Update current check with response
-    dispatch({
+
+    const checkUpdates = response.data;
+
+    return dispatch({
       type: ADD_MENU_ITEM,
       checkId,
-      itemId
+      checkUpdates,
+      item
     });
   } catch (error) {
     console.error("addMenuItem", error);

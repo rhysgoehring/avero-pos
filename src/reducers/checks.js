@@ -14,8 +14,19 @@ export default function(
         openChecks: [...state.openChecks, action.data]
       };
     case ADD_MENU_ITEM:
-      // TODO: Update Check:
-      return { ...state };
+      return {
+        ...state,
+        openChecks: state.openChecks.map(check => {
+          if (check.id === action.checkId) {
+            return {
+              ...check,
+              dateUpdated: action.checkUpdates.dateUpdated,
+              orderedItems: [action.item, ...check.orderedItems]
+            };
+          }
+          return check;
+        })
+      };
     case CLOSE_CHECK: {
       const newState = { ...state };
       const indexToDelete = newState.openChecks.findIndex(

@@ -83,7 +83,6 @@ class Tables extends React.Component {
 
   async fetchMenuItems() {
     const { data } = await axios.get(`${BASE_URL}/items`, requestConfig);
-    console.log('FETCHING MENU ITEMS');
     this.setState({ menuItems: data });
   }
 
@@ -143,8 +142,8 @@ class Tables extends React.Component {
   itemClickHandler = async item => {
     // TODO: Get CheckId in redux action, activeCheckId is not reliable
     const tableId = this.state.activeTableId;
-  
-    await this.props.addMenuItem(item.id, tableId);
+
+    await this.props.addMenuItem(item, tableId);
   };
 
   render() {
