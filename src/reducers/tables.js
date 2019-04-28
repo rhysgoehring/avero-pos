@@ -16,19 +16,25 @@ export default function(
         allTables: [...action.data]
       };
     case CLOSE_TABLE:
-      const newState = { ...state };
-      newState.openTables.splice(action.index, 1);
-      newState.closedTables = [...state.closedTables, action.table];
-      return newState;
-
+      return {
+        ...state,
+        // Remove table from open tables
+        openTables: state.openTables.filter(
+          table => table.id !== action.table.id
+        ),
+        // Add table to closed tables
+        closedTables: [action.table, ...state.closedTables]
+      };
     case OPEN_TABLE:
-      const newTableState = { ...state };
-      const indexToDelete = state.closedTables.findIndex(
-        i => i.id === action.table.id
-      );
-      newTableState.closedTables.splice(indexToDelete, 1);
-      newTableState.openTables = [action.table, ...state.openTables];
-      return newTableState;
+      return {
+        ...state,
+        // Remove table from closedTables
+        closedTables: state.closedTables.filter(
+          table => table.id !== action.table.id
+        ),
+        // Add table to openTables
+        openTables: [action.table, ...state.openTables]
+      };
 
     default:
       return {

@@ -22,7 +22,7 @@ const getTables = () => async dispatch => {
   }
 };
 
-const startNewCheck = (table, index) => async dispatch => {
+const startNewCheck = table => async dispatch => {
   try {
     const { data } = await axios.post(
       `${BASE_URL}/checks`,
@@ -30,9 +30,8 @@ const startNewCheck = (table, index) => async dispatch => {
       requestConfig
     );
 
-    await dispatch({
+    dispatch({
       type: CLOSE_TABLE,
-      index,
       table
     });
 
@@ -95,14 +94,14 @@ const closeCheck = table => async (dispatch, getState) => {
   const closedCheck = response.data;
 
   dispatch({
-    type: CLOSE_CHECK,
-    openCheck,
-    closedCheck
-  });
-
-  dispatch({
     type: OPEN_TABLE,
     table
+  });
+
+  return dispatch({
+    type: CLOSE_CHECK,
+    checkId,
+    closedCheck
   });
 };
 

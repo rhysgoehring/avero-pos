@@ -28,13 +28,15 @@ export default function(
         })
       };
     case CLOSE_CHECK: {
-      const newState = { ...state };
-      const indexToDelete = newState.openChecks.findIndex(
-        i => i.id === action.openCheck.id
-      );
-      newState.openChecks.splice(indexToDelete, 1);
-      newState.closedChecks = [action.closedCheck, ...state.closedChecks];
-      return newState;
+      return {
+        ...state,
+        // Remove check from openChecks
+        openChecks: state.openChecks.filter(
+          check => check.id !== action.checkId
+        ),
+        // Add check to closedChecks
+        closedChecks: [action.closedCheck, ...state.closedChecks]
+      };
     }
     default:
       return {

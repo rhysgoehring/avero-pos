@@ -93,8 +93,8 @@ class Tables extends React.Component {
     return false;
   };
 
-  newCheckClickHandler = async (table, index) => {
-    const { data } = await this.props.startNewCheck(table, index);
+  newCheckClickHandler = async table => {
+    const { data } = await this.props.startNewCheck(table);
 
     this.setState({
       activeTableId: table.id,
@@ -103,23 +103,34 @@ class Tables extends React.Component {
     });
   };
 
-  showItemsModal = (table, index) => {
-    this.setState({ showItemsModal: true });
+  showItemsModal = table => {
+    console.log('showing items modal');
+    const checkForTable = this.props.openChecks.find(
+      check => check.tableId === table.id
+    );
+    const checkId = checkForTable.id;
+
+    console.log('checkForTable', checkForTable);
+    console.log('checkId', checkId);
     this.setState({
-      activeTableId: table.id
+      showItemsModal: true,
+      activeTableId: table.id,
+      activeCheckId: checkId
     });
+    // TODO: Get check by checkId
   };
 
   hideItemsModal = () => {
-    this.setState({ showItemsModal: false });
     this.setState({
+      showItemsModal: false,
       activeTableId: '',
       activeTableNumber: '',
       activeCheckId: ''
     });
   };
-  handleCloseCurrentCheck = (table, index) => {
-    this.props.closeCheck(table, index);
+
+  handleCloseCurrentCheck = table => {
+    this.props.closeCheck(table);
   };
 
   renderTables() {
@@ -129,10 +140,10 @@ class Tables extends React.Component {
           <TableCard
             tableIsOpen={this.checkIfTableIsOpen(table)}
             cardTitle={`Table ${table.number}`}
-            handleNewCheckClick={() => this.newCheckClickHandler(table, index)}
-            handleAddItem={() => this.showItemsModal(table, index)}
+            handleNewCheckClick={() => this.newCheckClickHandler(table)}
+            handleAddItem={() => this.showItemsModal(table)}
             handleViewCheck={() => this.handleViewCurrentCheck(table, index)}
-            handleCloseCheck={() => this.handleCloseCurrentCheck(table, index)}
+            handleCloseCheck={() => this.handleCloseCurrentCheck(table)}
           />
         </Column>
       );
@@ -140,7 +151,6 @@ class Tables extends React.Component {
   }
 
   itemClickHandler = async item => {
-    // TODO: Get CheckId in redux action, activeCheckId is not reliable
     const tableId = this.state.activeTableId;
 
     await this.props.addMenuItem(item, tableId);
@@ -171,7 +181,8 @@ class Tables extends React.Component {
 function mapStateToProps(state) {
   return {
     tables: state.tables,
-    checks: state.checks
+    openChecks: state.checks.openChecks,
+    closedChecks: state.checks.closedChecks
   };
 }
 
