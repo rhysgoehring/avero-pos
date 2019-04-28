@@ -14,6 +14,7 @@ module.exports = {
     'react/destructuring-assignment': 0,
     'react/prop-types': 0,
     'spaced-comment': 0,
+    'no-case-declarations': 0
   },
   env: {
     browser: true,

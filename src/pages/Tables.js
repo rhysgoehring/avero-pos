@@ -1,7 +1,12 @@
 import React from 'react';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import { getTables, startNewCheck } from '../actions/index';
+import {
+  getTables,
+  startNewCheck,
+  addMenuItem,
+  closeCheck
+} from '../actions/index';
 import {
   Section,
   Container,
@@ -32,6 +37,7 @@ class Tables extends React.Component {
       menuItems: [],
       activeTableId: '',
       activeTableNumber: '',
+      activeCheckId: '',
       showItemsModal: false
     };
   }
@@ -55,8 +61,10 @@ class Tables extends React.Component {
     if (
       this.props.tables !== nextProps.tables ||
       this.state.tables !== nextProps.tables ||
-      this.state.tables.openTables !== nextProps.tables.openTables ||
-      this.state.tables.closedTables !== nextProps.tables.closedTables
+      this.state.tables.openTables !== nextProps.tables.openTables
+      // this.state.tables.closedTables !== nextProps.tables.closedTables ||
+      // this.props.tables.openTables !== nextProps.tables.openTables ||
+      // this.props.tables.closedTables !== nextProps.tables.closedTables
     ) {
       this.setState({
         openTables: nextProps.tables.openTables,
@@ -81,28 +89,38 @@ class Tables extends React.Component {
 
   checkIfTableIsOpen = table => {
     if (this.props.tables.closedTables.includes(table)) {
-      console.log('true');
       return true;
     }
     return false;
   };
 
-  async newCheckClickHandler(table, index) {
-    const data = await this.props.startNewCheck(table, index);
-    console.log('newCheckClick data on Tables page', data);
+  newCheckClickHandler = async (table, index) => {
+    const { data } = await this.props.startNewCheck(table, index);
 
     this.setState({
       activeTableId: table.id,
-      activeTableNumber: table.number
+      activeTableNumber: table.number,
+      activeCheckId: data.id
     });
-  }
+  };
 
   showItemsModal = (table, index) => {
     this.setState({ showItemsModal: true });
+    this.setState({
+      activeTableId: table.id
+    });
   };
 
   hideItemsModal = () => {
     this.setState({ showItemsModal: false });
+    this.setState({
+      activeTableId: '',
+      activeTableNumber: '',
+      activeCheckId: ''
+    });
+  };
+  handleCloseCurrentCheck = (table, index) => {
+    this.props.closeCheck(table, index);
   };
 
   renderTables() {
@@ -122,9 +140,11 @@ class Tables extends React.Component {
     });
   }
 
-  itemClickHandler = (item) => {
-    console.log('item', item);
-    //TODO: Fire Redux Action to
+  itemClickHandler = async item => {
+    // TODO: Get CheckId in redux action, activeCheckId is not reliable
+    const tableId = this.state.activeTableId;
+  
+    await this.props.addMenuItem(item.id, tableId);
   };
 
   render() {
@@ -137,7 +157,7 @@ class Tables extends React.Component {
           modalTitle={`Table ${this.state.activeTableNumber}`}
           menuItems={this.state.menuItems}
           currentCheckItems={this.state.menuItems}
-          handleItemClick={(item) => this.itemClickHandler(item)}
+          handleItemClick={item => this.itemClickHandler(item)}
         />
         <Container>
           <GridContainer>
@@ -158,5 +178,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getTables, startNewCheck }
+  { getTables, startNewCheck, addMenuItem, closeCheck }
 )(Tables);

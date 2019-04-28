@@ -1,4 +1,4 @@
-import { GET_TABLES, CLOSE_TABLE } from "../actions/types";
+import { GET_TABLES, CLOSE_TABLE, OPEN_TABLE } from "../actions/types";
 
 export default function(
   state = {
@@ -16,12 +16,20 @@ export default function(
         allTables: [...action.data]
       };
     case CLOSE_TABLE:
-      // Remove table from openTables
       const newState = { ...state };
       newState.openTables.splice(action.index, 1);
-      // Add table to closedTables
-      newState.closedTables = [action.table, ...state.closedTables];
+      newState.closedTables = [...state.closedTables, action.table];
       return newState;
+
+    case OPEN_TABLE:
+      const newTableState = { ...state };
+      const indexToDelete = state.closedTables.findIndex(
+        i => i.id === action.table.id
+      );
+      newTableState.closedTables.splice(indexToDelete, 1);
+      newTableState.openTables = [action.table, ...state.openTables];
+      return newTableState;
+
     default:
       return {
         ...state
