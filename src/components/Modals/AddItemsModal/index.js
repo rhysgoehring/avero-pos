@@ -1,13 +1,23 @@
 import React from "react";
 import Modal from "../../BaseModal";
 import { ModalButton } from "../../BaseModal/styles";
-import { LIGHT_GREY, AVERO_ICON_BLUE } from "../../../styles/colors";
+import {
+  LIGHT_GREY,
+  AVERO_ICON_BLUE,
+  AVERO_ICON_GREEN,
+  AVERO_ICON_RED,
+  RED,
+  AVERO_GREEN
+} from "../../../styles/colors";
 import {
   ModalHeader,
   ModalTitle,
   ModalContainer,
-  CheckWrapper,
-  ModalSection
+  ModalSection,
+  ColumnTitle,
+  ItemRow,
+  ItemName,
+  ItemPrice
 } from "./styles";
 import {
   Container,
@@ -37,32 +47,54 @@ const AddItemsModal = ({
     </ModalHeader>
     <ModalContainer>
       <ModalSection>
-        {menuItems.map(item => {
-          return (
-            <ModalButton
-              width="60%"
-              buttonColor={AVERO_ICON_BLUE}
-              onClick={() => handleItemClick(item)}
-              margin="0.5rem"
-              key={item.name}
-            >
-              {item.name}
-            </ModalButton>
-          );
-        })}
+        <ColumnTitle>Menu Items</ColumnTitle>
+        <Row>
+          {menuItems.map(item => {
+            return (
+              <Column
+                col="12"
+                key={item.name}
+                padding="0"
+                justifyContent="flex-start"
+              >
+                <ItemRow>
+                  <ItemName>{item.name}</ItemName>
+                  <ItemPrice>${item.price}</ItemPrice>
+                  <ModalButton
+                    width="9rem"
+                    fontSize="1.3rem"
+                    buttonColor={AVERO_GREEN}
+                    onClick={() => handleItemClick(item)}
+                    margin="0"
+                    key={item.name}
+                  >
+                    {/* {item.name} */}
+                    Add Item
+                  </ModalButton>
+                </ItemRow>
+              </Column>
+            );
+          })}
+        </Row>
       </ModalSection>
-      <ModalSection>
-        {currentCheckItems.map(item => {
+      <ModalSection alignSelf="start">
+        <ColumnTitle>Current Check:</ColumnTitle>
+        {currentCheckItems.map((item, index) => {
+          const uniqueKey = parseInt(item.id, 10) + index;
           return (
-            <ModalButton
-              width="60%"
-              buttonColor={AVERO_ICON_BLUE}
-              onClick={handleItemClick}
-              margin="0.5rem"
-              key={item.name}
-            >
-              {item.name}
-            </ModalButton>
+            <ItemRow key={uniqueKey}>
+              <ItemName>{item.name}</ItemName>
+              <ItemPrice>${item.price}</ItemPrice>
+              <ModalButton
+                width="9rem"
+                fontSize="1rem"
+                buttonColor={AVERO_ICON_RED}
+                onClick={handleItemClick}
+                margin="0"
+              >
+                VOID
+              </ModalButton>
+            </ItemRow>
           );
         })}
       </ModalSection>

@@ -33,6 +33,7 @@ const ModalButton = styled(CardButton)`
   width: ${({ width }) => width};
   color: white;
   margin: ${({ margin }) => margin};
+  font-size: ${({ fontSize }) => fontSize};
 `;
 
 export { ModalContainer, ModalSection, ModalButton };

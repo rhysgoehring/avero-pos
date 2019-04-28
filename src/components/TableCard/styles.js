@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 const Card = styled.div`
   height: 31rem;
   width: 25rem;
-  background-color: ${props => props.bgColor};
+  background-color: ${({ bgColor }) => bgColor};
   display: flex;
   border-radius: 1.5rem;
   flex-direction: column;
@@ -11,7 +11,7 @@ const Card = styled.div`
   align-items: center;
   border-width: 1px;
   border-style: solid;
-  border-color: ${props => props.bgColor};
+  border-color: ${({ bgColor }) => bgColor};
 `;
 
 const CardHeader = styled.div`
@@ -41,7 +41,7 @@ const CardButtonContainer = styled.div`
 `;
 
 const CardButton = styled.button`
-  background-color: ${props => props.buttonColor};
+  background-color: ${({ buttonColor }) => buttonColor};
   color: white;
   font-size: 2rem;
   width: 80%;
@@ -50,7 +50,7 @@ const CardButton = styled.button`
   cursor: pointer;
   border-width: 1px;
   border-style: solid;
-  border-color: ${props => props.buttonColor};
+  border-color: ${({ buttonColor }) => buttonColor};
   z-index: 999;
   padding: 1rem 1.2rem;
   text-align: center;

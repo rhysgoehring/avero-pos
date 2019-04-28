@@ -17,6 +17,7 @@ const Modal = ({
         width={cancelButtonWidth}
         buttonColor={RED}
         onClick={handleClose}
+        margin="0.5rem 0"
       >
         Close
       </ModalButton>
