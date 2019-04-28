@@ -105,6 +105,7 @@ class Tables extends React.Component {
 
   showItemsModal = table => {
     console.log('showing items modal');
+    // TODO: Use find in actions instead of filter
     const checkForTable = this.props.openChecks.find(
       check => check.tableId === table.id
     );

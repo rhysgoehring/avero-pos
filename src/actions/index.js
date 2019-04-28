@@ -45,13 +45,12 @@ const startNewCheck = table => async dispatch => {
 };
 
 const addMenuItem = (item, tableId) => async (dispatch, getState) => {
-  // TODO: Make a function that filters checks by tableId, using this code twice:
+  // TODO: Make a function that finds checks by tableId, using this code twice:
   const { checks } = getState();
   const { openChecks } = checks;
-  const currentCheckArr = await openChecks.filter(
+  const currentCheck = await openChecks.find(
     check => check.tableId === tableId
   );
-  const currentCheck = currentCheckArr[0];
   const checkId = currentCheck.id;
   const itemId = item.id;
   // Find Index of current check
@@ -80,12 +79,11 @@ const closeCheck = table => async (dispatch, getState) => {
 
   const { openChecks } = checks;
   const currentTableId = table.id;
-  const currentCheckArr = await openChecks.filter(
+  const currentCheck = await openChecks.find(
     check => check.tableId === currentTableId
   );
 
-  const openCheck = currentCheckArr[0];
-  const checkId = openCheck.id;
+  const checkId = currentCheck.id;
   const response = await axios.put(
     `${BASE_URL}/checks/${checkId}/close`,
     {},
