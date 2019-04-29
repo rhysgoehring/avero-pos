@@ -56,15 +56,15 @@ const ItemRow = styled.div`
 
 const ItemName = styled.p`
   font-size: 1.6rem;
-  color: black;
   padding-left: 0.5rem;
   flex: 0 0 50%;
-  /* text-transform: capitalize; */
+  ${({ color }) => color || "black"};
+  text-decoration: ${({ textDecoration }) => textDecoration};
 `;
 
 const ItemPrice = styled.p`
   font-size: 1.6rem;
-  color: black;
+  color: ${({ color }) => color || "black"};
   align-self: center;
   flex: 0 0 33%;
 `;

@@ -79,11 +79,21 @@ const AddItemsModal = ({
       </ModalSection>
       <ModalSection alignSelf="start">
         <ColumnTitle>Current Check Total: ${checkTotal}</ColumnTitle>
-        {currentCheckItems.map((item, index) => {
+        {currentCheckItems.map(item => {
           // TODO: create new unique key
-          const uniqueKey = parseInt(item.id, 10) + index;
+          console.log("currentCheckItems: ", currentCheckItems);
+          if (item.voided) {
+            return (
+              <ItemRow key={item.orderedItemId}>
+                <ItemName textDecoration="line-through red" color={RED}>
+                  {item.name}
+                </ItemName>
+                <ItemPrice color={RED}>VOID</ItemPrice>
+              </ItemRow>
+            );
+          }
           return (
-            <ItemRow key={uniqueKey}>
+            <ItemRow key={item.orderedItemId}>
               <ItemName>{item.name}</ItemName>
               <ItemPrice>${item.price}</ItemPrice>
               <ModalButton
