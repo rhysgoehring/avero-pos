@@ -203,6 +203,7 @@ class Tables extends React.Component {
           handleVoidItemClick={item => this.handleVoidItem(item)}
         />
         <Container>
+          <SubHeading>Tables</SubHeading>
           <GridContainer>
             <Row>{this.renderTables()}</Row>
           </GridContainer>
