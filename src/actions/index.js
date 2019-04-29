@@ -6,7 +6,8 @@ import {
   ADD_MENU_ITEM,
   CLOSE_CHECK,
   OPEN_TABLE,
-  VOID_ITEM
+  VOID_ITEM,
+  GET_SERVER_CHECKS
 } from "./types";
 import { BASE_URL, requestConfig } from "../config";
 
@@ -47,8 +48,14 @@ const startNewCheck = table => async dispatch => {
 
 const addMenuItem = (item, tableId) => async (dispatch, getState) => {
   // TODO: Make a function that finds checks by tableId, using this code twice:
-  const { checks } = getState();
+  const { checks, tables } = getState();
+
   const { openChecks } = checks;
+  const { closedTables } = tables;
+  console.log("closedTables", closedTables);
+  const currentTable = await closedTables.find(table => table.id === tableId);
+  console.log("currentTable", currentTable);
+  const tableNumber = currentTable.number;
   const currentCheck = await openChecks.find(
     check => check.tableId === tableId
   );
@@ -73,7 +80,8 @@ const addMenuItem = (item, tableId) => async (dispatch, getState) => {
       type: ADD_MENU_ITEM,
       checkId,
       checkUpdates,
-      newItem
+      newItem,
+      tableNumber
     });
   } catch (error) {
     console.error("addMenuItem", error);
@@ -99,7 +107,8 @@ const closeCheck = table => async (dispatch, getState) => {
 
   const closedCheck = {
     ...checkResponse,
-    orderedItems: currentCheck.orderedItems
+    orderedItems: currentCheck.orderedItems,
+    tableNumber: currentCheck.tableNumber
   };
 
   dispatch({
@@ -134,4 +143,23 @@ const voidItem = (item, checkId) => async dispatch => {
   }
 };
 
-export { getTables, startNewCheck, addMenuItem, closeCheck, voidItem };
+const getServerChecks = () => async dispatch => {
+  try {
+    const response = await axios.get(`${BASE_URL}/checks`, requestConfig);
+    console.log("getServerChecks response", response);
+    dispatch({
+      type: GET_SERVER_CHECKS
+    });
+  } catch (error) {
+    console.error("getServerChecks redux error", error);
+  }
+};
+
+export {
+  getTables,
+  startNewCheck,
+  addMenuItem,
+  closeCheck,
+  voidItem,
+  getServerChecks
+};

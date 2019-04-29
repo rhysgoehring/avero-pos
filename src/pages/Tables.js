@@ -213,13 +213,13 @@ class Tables extends React.Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     tables: state.tables,
     openChecks: state.checks.openChecks,
     closedChecks: state.checks.closedChecks
   };
-}
+};
 
 export default connect(
   mapStateToProps,

@@ -2,13 +2,15 @@ import {
   START_NEW_CHECK,
   ADD_MENU_ITEM,
   CLOSE_CHECK,
-  VOID_ITEM
+  VOID_ITEM,
+  GET_SERVER_CHECKS
 } from "../actions/types";
 
 export default function(
   state = {
     openChecks: [],
-    closedChecks: []
+    closedChecks: [],
+    checksFromServer: []
   },
   action
 ) {
@@ -26,7 +28,8 @@ export default function(
             return {
               ...check,
               dateUpdated: action.checkUpdates.dateUpdated,
-              orderedItems: [...check.orderedItems, action.newItem]
+              orderedItems: [...check.orderedItems, action.newItem],
+              tableNumber: action.tableNumber
             };
           }
           return check;
@@ -66,6 +69,10 @@ export default function(
         })
       };
     }
+    case GET_SERVER_CHECKS:
+      return {
+        ...state
+      };
     default:
       return {
         ...state
