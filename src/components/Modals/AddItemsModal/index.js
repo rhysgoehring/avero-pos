@@ -67,9 +67,7 @@ const AddItemsModal = ({
                     buttonColor={AVERO_GREEN}
                     onClick={() => handleItemClick(item)}
                     margin="0"
-                    key={item.name}
                   >
-                    {/* {item.name} */}
                     Add Item
                   </ModalButton>
                 </ItemRow>
