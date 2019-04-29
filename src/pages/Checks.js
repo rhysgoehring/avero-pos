@@ -1,18 +1,18 @@
-import React from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import { getServerChecks } from '../actions';
+import React from "react";
+import axios from "axios";
+import { connect } from "react-redux";
+import { getServerChecks } from "../actions";
 import {
   Section,
   Container,
   CheckSectionContainer,
   CheckSection,
   CheckRowItem
-} from '../styles/layout';
-import { ItemRow as CheckRow } from '../components/Modals/AddItemsModal/styles';
-import { CheckSectionTitle } from '../styles/typography';
-import { ModalButton as ViewCheckButton } from '../components/BaseModal/styles';
-import { AVERO_BLUE } from '../styles/colors';
+} from "../styles/layout";
+import { ItemRow as CheckRow } from "../components/Modals/AddItemsModal/styles";
+import { CheckSectionTitle } from "../styles/typography";
+import { ModalButton as ViewCheckButton } from "../components/BaseModal/styles";
+import { AVERO_BLUE } from "../styles/colors";
 
 class Checks extends React.Component {
   constructor(props) {
@@ -27,16 +27,16 @@ class Checks extends React.Component {
 
   fetchChecksFromServer = async () => {
     const response = await this.props.getServerChecks();
-    console.log('CHECKS PAGE, fetchChecks response', response);
+    console.log("CHECKS PAGE, fetchChecks response", response);
   };
 
   viewCheckDetails = check => {
-    console.log('clicked viewCheckDetails button');
+    console.log("clicked viewCheckDetails button");
   };
 
   renderClosedChecks = () => {
     return this.props.closedChecks.map(check => {
-      console.log('closedCheck', check);
+      console.log("closedCheck", check);
       return (
         <CheckRow>
           <CheckRowItem>{check.dateUpdated}</CheckRowItem>
@@ -60,7 +60,7 @@ class Checks extends React.Component {
 
   renderOpenChecks = () => {
     return this.props.openChecks.map(check => {
-      console.log('openCheck', check);
+      console.log("openCheck", check);
       return (
         <CheckRow>
           <CheckRowItem>{check.dateUpdated}</CheckRowItem>
@@ -76,16 +76,16 @@ class Checks extends React.Component {
             View Check
           </ViewCheckButton>
         </CheckRow>
-      )
+      );
     });
   };
 
   sortClosedChecks = () => {
-    console.log('sortClosedChecks clicked');
+    console.log("sortClosedChecks clicked");
   };
 
   sortOpenChecks = () => {
-    console.log('sortOpenChecks clicked');
+    console.log("sortOpenChecks clicked");
   };
 
   render() {

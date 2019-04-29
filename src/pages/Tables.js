@@ -1,32 +1,32 @@
-import React from 'react';
-import axios from 'axios';
-import { connect } from 'react-redux';
+import React from "react";
+import axios from "axios";
+import { connect } from "react-redux";
 import {
   getTables,
   startNewCheck,
   addMenuItem,
   closeCheck,
   voidItem
-} from '../actions/index';
+} from "../actions/index";
 import {
   Section,
   Container,
   GridContainer,
   Column,
   Row
-} from '../styles/layout';
-import { SubHeading } from '../styles/typography';
-import TableCard from '../components/TableCard';
-import Modal from '../components/BaseModal';
-import AddItemsModal from '../components/Modals/AddItemsModal';
-import { BASE_URL, requestConfig } from '../config';
+} from "../styles/layout";
+import { SubHeading } from "../styles/typography";
+import TableCard from "../components/TableCard";
+import Modal from "../components/BaseModal";
+import AddItemsModal from "../components/Modals/AddItemsModal";
+import { BASE_URL, requestConfig } from "../config";
 import {
   AVERO_GREEN,
   AVERO_ORANGE,
   AVERO_BLUE,
   RED,
   MEDIUM_GREY
-} from '../styles/colors';
+} from "../styles/colors";
 
 class Tables extends React.Component {
   constructor(props) {
@@ -37,9 +37,9 @@ class Tables extends React.Component {
       closedTables: [],
       menuItems: [],
       activeCheckItems: [],
-      activeTableId: '',
-      activeTableNumber: '',
-      activeCheckId: '',
+      activeTableId: "",
+      activeTableNumber: "",
+      activeCheckId: "",
       showItemsModal: false
     };
   }
@@ -122,9 +122,9 @@ class Tables extends React.Component {
   hideItemsModal = () => {
     this.setState({
       showItemsModal: false,
-      activeTableId: '',
-      activeTableNumber: '',
-      activeCheckId: ''
+      activeTableId: "",
+      activeTableNumber: "",
+      activeCheckId: ""
     });
   };
 
@@ -154,6 +154,7 @@ class Tables extends React.Component {
 
     const { newItem } = await this.props.addMenuItem(item, tableId);
 
+    // TODO: Use state callback like in handleVoidItem
     this.setState({
       activeCheckItems: [...this.state.activeCheckItems, newItem]
     });
