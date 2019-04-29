@@ -34,7 +34,8 @@ const AddItemsModal = ({
   menuItems,
   handleItemClick,
   currentCheckItems,
-  checkTotal
+  checkTotal,
+  handleVoidItemClick
 }) => (
   <Modal
     showModal={show}
@@ -80,10 +81,7 @@ const AddItemsModal = ({
         <ColumnTitle>Current Check Total: ${checkTotal}</ColumnTitle>
         {currentCheckItems.map((item, index) => {
           // TODO: create new unique key
-          console.log("item", item);
-          console.log("index", index);
           const uniqueKey = parseInt(item.id, 10) + index;
-          console.log("unique key", uniqueKey);
           return (
             <ItemRow key={uniqueKey}>
               <ItemName>{item.name}</ItemName>
@@ -92,7 +90,7 @@ const AddItemsModal = ({
                 width="9rem"
                 fontSize="1rem"
                 buttonColor={AVERO_ICON_RED}
-                onClick={handleItemClick}
+                onClick={() => handleVoidItemClick(item)}
                 margin="0"
               >
                 VOID

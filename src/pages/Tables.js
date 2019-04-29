@@ -5,7 +5,8 @@ import {
   getTables,
   startNewCheck,
   addMenuItem,
-  closeCheck
+  closeCheck,
+  voidItem
 } from '../actions/index';
 import {
   Section,
@@ -156,11 +157,18 @@ class Tables extends React.Component {
   itemClickHandler = async item => {
     const tableId = this.state.activeTableId;
 
-    await this.props.addMenuItem(item, tableId);
+    const { newItem } = await this.props.addMenuItem(item, tableId);
 
+    console.log('newItem', newItem);
     this.setState({
-      activeCheckItems: [item, ...this.state.activeCheckItems]
+      activeCheckItems: [newItem, ...this.state.activeCheckItems]
     });
+  };
+
+  handleVoidItem = item => {
+    console.log('void item: ', item);
+    console.log('this.state.activeCheckId', this.state.activeCheckId);
+    this.props.voidItem(item, this.state.activeCheckId);
   };
 
   calculateTotal = () => {
@@ -184,6 +192,7 @@ class Tables extends React.Component {
           menuItems={this.state.menuItems}
           currentCheckItems={this.state.activeCheckItems}
           handleItemClick={item => this.itemClickHandler(item)}
+          handleVoidItemClick={item => this.handleVoidItem(item)}
         />
         <Container>
           <GridContainer>
@@ -205,5 +214,5 @@ function mapStateToProps(state) {
 
 export default connect(
   mapStateToProps,
-  { getTables, startNewCheck, addMenuItem, closeCheck }
+  { getTables, startNewCheck, addMenuItem, closeCheck, voidItem }
 )(Tables);

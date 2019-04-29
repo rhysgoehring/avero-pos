@@ -5,7 +5,8 @@ import {
   START_NEW_CHECK,
   ADD_MENU_ITEM,
   CLOSE_CHECK,
-  OPEN_TABLE
+  OPEN_TABLE,
+  VOID_ITEM
 } from "./types";
 import { BASE_URL, requestConfig } from "../config";
 
@@ -62,7 +63,6 @@ const addMenuItem = (item, tableId) => async (dispatch, getState) => {
     );
 
     const checkUpdates = response.data;
-    console.log("checkUpdates", checkUpdates);
 
     const newItem = {
       ...item,
@@ -114,4 +114,31 @@ const closeCheck = table => async (dispatch, getState) => {
   });
 };
 
-export { getTables, startNewCheck, addMenuItem, closeCheck };
+const voidItem = (item, checkId) => async (dispatch, getState) => {
+  // console.log("voidItem item:", item);
+  // console.log("voidItem checkId", checkId);
+  const { orderedItemId } = item;
+  // const { checks } = getState();
+  // const currentCheck = await checks.openChecks.find(
+  //   check => check.id === checkId
+  // );
+  try {
+    const response = await axios.put(
+      `${BASE_URL}/checks/${checkId}/voidItem`,
+      { orderedItemId },
+      requestConfig
+    );
+    const checkUpdates = response.data;
+    console.log("checkUpdates", checkUpdates);
+
+    dispatch({
+      type: VOID_ITEM,
+      checkId,
+      checkUpdates
+    });
+  } catch (error) {
+    console.error("voidItem action error", error);
+  }
+};
+
+export { getTables, startNewCheck, addMenuItem, closeCheck, voidItem };
