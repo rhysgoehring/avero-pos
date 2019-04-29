@@ -62,12 +62,18 @@ const addMenuItem = (item, tableId) => async (dispatch, getState) => {
     );
 
     const checkUpdates = response.data;
+    console.log("checkUpdates", checkUpdates);
+
+    const newItem = {
+      ...item,
+      orderedItemId: checkUpdates.id
+    };
 
     return dispatch({
       type: ADD_MENU_ITEM,
       checkId,
       checkUpdates,
-      item
+      newItem
     });
   } catch (error) {
     console.error("addMenuItem", error);

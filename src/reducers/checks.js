@@ -21,7 +21,7 @@ export default function(
             return {
               ...check,
               dateUpdated: action.checkUpdates.dateUpdated,
-              orderedItems: [action.item, ...check.orderedItems]
+              orderedItems: [...check.orderedItems, action.newItem]
             };
           }
           return check;
