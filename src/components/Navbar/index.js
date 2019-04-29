@@ -18,7 +18,7 @@ const Navbar = () => (
         </NavItem>
 
         <Link exact to="/checks">
-          View Closed Checks
+          View All Checks
         </Link>
       </NavList>
       <ModalButton

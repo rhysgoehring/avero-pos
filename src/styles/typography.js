@@ -6,4 +6,11 @@ const SubHeading = styled.h2`
   color: white;
 `;
 
-export { SubHeading };
+const CheckSectionTitle = styled.h3`
+  font-size: 2rem;
+  font-weight: bold;
+  color: black;
+  text-decoration: underline;
+`;
+
+export { SubHeading, CheckSectionTitle };

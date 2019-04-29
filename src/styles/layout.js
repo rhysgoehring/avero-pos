@@ -3,11 +3,14 @@ import styled from "styled-components/macro";
 const Container = styled.div`
   padding-right: 1.5rem;
   padding-left: 1.5rem;
+  margin-top: ${({ marginTop }) => marginTop};
   display: flex;
   width: 100%;
   flex-direction: column;
-  justify-content: center;
+  justify-content: ${({ justifyContent }) => justifyContent || "center"};
   align-items: center;
+  height: ${({ height }) => height};
+  border: ${({ border }) => border};
 `;
 
 const Section = styled.main`
@@ -67,4 +70,45 @@ const Column = styled.div`
   ${({ col }) => col && getWidth(col)};
 `;
 
-export { Container, Section, GridContainer, Column, Row };
+/*----------------------------------CHECKS PAGE---------------------------------------------------------*/
+const CheckSectionContainer = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+`;
+
+const CheckSection = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  border-bottom: ${({ borderBottom }) => borderBottom};
+`;
+
+const CheckRowItem = styled.p`
+  font-size: 1.6rem;
+  padding-left: 0.5rem;
+  flex: 0 0 10%;
+`;
+
+// const CheckTable = styled.p`
+
+// `;
+
+export {
+  Container,
+  Section,
+  GridContainer,
+  Column,
+  Row,
+  CheckSectionContainer,
+  CheckSection,
+  CheckRowItem
+};
