@@ -147,6 +147,7 @@ const getServerChecks = () => async dispatch => {
   try {
     const response = await axios.get(`${BASE_URL}/checks`, requestConfig);
     console.log("getServerChecks response", response);
+    // TODO: Merge check properties that aren't present in response
     dispatch({
       type: GET_SERVER_CHECKS
     });
