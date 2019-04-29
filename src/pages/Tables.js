@@ -106,22 +106,17 @@ class Tables extends React.Component {
   };
 
   showItemsModal = table => {
-    console.log('showing items modal');
-
     const checkForTable = this.props.openChecks.find(
       check => check.tableId === table.id
     );
     const checkId = checkForTable.id;
 
-    console.log('checkForTable', checkForTable);
-    console.log('checkId', checkId);
     this.setState({
       showItemsModal: true,
       activeTableId: table.id,
       activeCheckId: checkId,
       activeCheckItems: checkForTable.orderedItems
     });
-    // TODO: Get check by checkId
   };
 
   hideItemsModal = () => {
@@ -159,16 +154,29 @@ class Tables extends React.Component {
 
     const { newItem } = await this.props.addMenuItem(item, tableId);
 
-    console.log('newItem', newItem);
     this.setState({
       activeCheckItems: [newItem, ...this.state.activeCheckItems]
     });
   };
 
-  handleVoidItem = item => {
-    console.log('void item: ', item);
-    console.log('this.state.activeCheckId', this.state.activeCheckId);
-    this.props.voidItem(item, this.state.activeCheckId);
+  handleVoidItem = async item => {
+    await this.props.voidItem(item, this.state.activeCheckId);
+    this.setState(state => {
+      const activeCheckItems = state.activeCheckItems.map(checkItem => {
+        if (checkItem.id === item.id) {
+          return {
+            ...checkItem,
+            voided: true,
+            price: 0
+          };
+        } else {
+          return checkItem;
+        }
+      });
+      return {
+        activeCheckItems
+      };
+    });
   };
 
   calculateTotal = () => {
