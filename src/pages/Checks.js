@@ -51,7 +51,7 @@ class Checks extends React.Component {
             onClick={() => this.viewCheckDetails(check)}
             margin="0 0 3px 0"
           >
-            Sort By
+            View Check
           </ViewCheckButton>
         </CheckRow>
       );
@@ -61,6 +61,22 @@ class Checks extends React.Component {
   renderOpenChecks = () => {
     return this.props.openChecks.map(check => {
       console.log('openCheck', check);
+      return (
+        <CheckRow>
+          <CheckRowItem>{check.dateUpdated}</CheckRowItem>
+          <CheckRowItem>{check.tableNumber}</CheckRowItem>
+          <CheckRowItem>Total</CheckRowItem>
+          <ViewCheckButton
+            width="10%"
+            fontSize="1.5rem"
+            buttonColor={AVERO_BLUE}
+            onClick={() => this.viewCheckDetails(check)}
+            margin="0 0 3px 0"
+          >
+            View Check
+          </ViewCheckButton>
+        </CheckRow>
+      )
     });
   };
 
@@ -83,7 +99,7 @@ class Checks extends React.Component {
         >
           <CheckSectionTitle>CLOSED CHECKS</CheckSectionTitle>
           <CheckSectionContainer>
-            <CheckSection borderBottom="2px solid black">
+            <CheckSection>
               <CheckRow>
                 <CheckRowItem>Date</CheckRowItem>
                 <CheckRowItem>Table Number</CheckRowItem>
@@ -113,7 +129,7 @@ class Checks extends React.Component {
         >
           <CheckSectionTitle>OPEN CHECKS</CheckSectionTitle>
           <CheckSectionContainer>
-            <CheckSection borderBottom="2px solid black">
+            <CheckSection>
               <CheckRow>
                 <CheckRowItem>Date</CheckRowItem>
                 <CheckRowItem>Table Number</CheckRowItem>
