@@ -80,31 +80,28 @@ const AddItemsModal = ({
       <ModalSection alignSelf="start">
         <ColumnTitle>Current Check Total: ${checkTotal}</ColumnTitle>
         {currentCheckItems.map(item => {
-          // TODO: create new unique key
-          console.log("currentCheckItems: ", currentCheckItems);
-          if (item.voided) {
-            return (
-              <ItemRow key={item.orderedItemId}>
-                <ItemName textDecoration="line-through red" color={RED}>
-                  {item.name}
-                </ItemName>
-                <ItemPrice color={RED}>VOID</ItemPrice>
-              </ItemRow>
-            );
-          }
           return (
             <ItemRow key={item.orderedItemId}>
-              <ItemName>{item.name}</ItemName>
-              <ItemPrice>${item.price}</ItemPrice>
-              <ModalButton
-                width="9rem"
-                fontSize="1rem"
-                buttonColor={AVERO_ICON_RED}
-                onClick={() => handleVoidItemClick(item)}
-                margin="0"
+              <ItemName
+                textDecoration={item.voided ? `line-through ${RED}` : "none"}
+                color={item.voided ? `${RED}` : "black"}
               >
-                VOID
-              </ModalButton>
+                {item.name}
+              </ItemName>
+              <ItemPrice color={item.voided ? `${RED}` : "black"}>
+                {item.voided ? "VOID" : `${item.price}`}
+              </ItemPrice>
+              {!item.voided ? (
+                <ModalButton
+                  width="9rem"
+                  fontSize="1rem"
+                  buttonColor={AVERO_ICON_RED}
+                  onClick={() => handleVoidItemClick(item)}
+                  margin="0"
+                >
+                  VOID
+                </ModalButton>
+              ) : null}
             </ItemRow>
           );
         })}
