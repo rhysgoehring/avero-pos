@@ -114,14 +114,8 @@ const closeCheck = table => async (dispatch, getState) => {
   });
 };
 
-const voidItem = (item, checkId) => async (dispatch, getState) => {
-  // console.log("voidItem item:", item);
-  // console.log("voidItem checkId", checkId);
+const voidItem = (item, checkId) => async dispatch => {
   const { orderedItemId } = item;
-  // const { checks } = getState();
-  // const currentCheck = await checks.openChecks.find(
-  //   check => check.id === checkId
-  // );
   try {
     const response = await axios.put(
       `${BASE_URL}/checks/${checkId}/voidItem`,
@@ -129,9 +123,8 @@ const voidItem = (item, checkId) => async (dispatch, getState) => {
       requestConfig
     );
     const checkUpdates = response.data;
-    console.log("checkUpdates", checkUpdates);
 
-    dispatch({
+    return dispatch({
       type: VOID_ITEM,
       checkId,
       checkUpdates
