@@ -23,10 +23,7 @@ const TableCard = props => {
         </CardHeader>
         <CardButtonContainer>
           <CardButton onClick={props.handleAddItem} buttonColor={AVERO_ORANGE}>
-            Add Item To Check
-          </CardButton>
-          <CardButton onClick={props.handleViewCheck} buttonColor={AVERO_BLUE}>
-            View Current Check
+            Modify / View Check
           </CardButton>
           <CardButton onClick={props.handleCloseCheck} buttonColor={RED}>
             Close Current Check

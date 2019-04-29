@@ -155,7 +155,7 @@ class Tables extends React.Component {
     const { newItem } = await this.props.addMenuItem(item, tableId);
 
     this.setState({
-      activeCheckItems: [newItem, ...this.state.activeCheckItems]
+      activeCheckItems: [...this.state.activeCheckItems, newItem]
     });
   };
 
