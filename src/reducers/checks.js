@@ -4,6 +4,7 @@ import {
   CLOSE_CHECK,
   VOID_ITEM,
   GET_SERVER_CHECKS,
+  GET_CLOSED_CHECK_BY_ID
 } from "../actions/types";
 
 export default function(
@@ -78,6 +79,19 @@ export default function(
         checksFromServer: {
           openChecks: action.openChecks,
           closedChecks: action.closedChecks
+        }
+      };
+    case GET_CLOSED_CHECK_BY_ID:
+      return {
+        ...state,
+        checksFromServer: {
+          closedChecks: state.checksFromServer.closedChecks.map(check => {
+            if (check.id === action.currentCheck.id) {
+              return action.currentCheck;
+            }
+            return check;
+          }),
+          openChecks: [...state.checksFromServer.openChecks]
         }
       };
     default:

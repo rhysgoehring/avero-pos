@@ -1,7 +1,6 @@
 import React from "react";
-import axios from "axios";
 import { connect } from "react-redux";
-import { getServerChecks } from "../actions";
+import { getServerChecks, getClosedCheckById } from "../actions";
 import {
   Section,
   Container,
@@ -22,7 +21,9 @@ class Checks extends React.Component {
     this.state = {
       showViewCheckModal: false,
       activeTableNumber: "",
-      activeTableOpenDate: ""
+      activeTableOpenDate: "",
+      activeCheckId: "",
+      activeCheckItems: []
     };
   }
 
@@ -31,16 +32,21 @@ class Checks extends React.Component {
   }
 
   fetchChecksFromServer = async () => {
-    const response = await this.props.getServerChecks();
+    await this.props.getServerChecks();
     // console.log("CHECKS PAGE, fetchChecks response", response);
   };
 
-  showViewCheckModal = check => {
+  showViewCheckModal = async check => {
     console.log("showViewCheckModal, check", check);
+    // TODO: Call redux action to get check by id
+    const { currentCheck } = await this.props.getClosedCheckById(check.id);
+    console.log("RESPONSE", currentCheck);
     this.setState({
       showViewCheckModal: true,
       activeTableNumber: check.tableNumber,
-      activeTableOpenDate: check.dateCreated
+      activeTableOpenDate: check.dateCreated,
+      activeCheckId: check.id,
+      activeCheckItems: currentCheck.orderedItems
     });
   };
 
@@ -116,6 +122,7 @@ class Checks extends React.Component {
           show={showViewCheckModal}
           close={this.hideViewCheckModal}
           modalTitle={`Check for Table ${activeTableNumber}, Opened On ${activeTableOpenDate}`}
+          currentCheckItems={this.state.activeCheckItems}
         />
         <Container
           marginTop="1rem"
@@ -190,5 +197,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getServerChecks }
+  { getServerChecks, getClosedCheckById }
 )(Checks);

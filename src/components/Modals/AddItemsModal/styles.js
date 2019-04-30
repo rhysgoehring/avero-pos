@@ -20,6 +20,7 @@ const ModalTitle = styled.h3`
 const ModalContainer = styled.div`
   display: flex;
   align-items: center;
+  flex-direction: ${({ flexDirection }) => flexDirection};
   justify-content: flex-start;
   width: 100%;
   height: auto;
@@ -31,9 +32,9 @@ const ModalSection = styled.div`
   align-self: ${({ alignSelf }) => alignSelf};
   justify-content: flex-start;
   flex-direction: column;
-  width: 50%;
-  height: 59.3rem;
-  border-right: 1px solid black;
+  width: ${({ width }) => width || "50%"};
+  height: ${({ height }) => height || "59.3rem"};
+  border-right: ${({ borderRight }) => borderRight || "1px solid black"};
   overflow-x: hidden;
   overflow-y: auto;
 `;

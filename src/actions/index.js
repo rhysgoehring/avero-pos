@@ -7,7 +7,8 @@ import {
   CLOSE_CHECK,
   OPEN_TABLE,
   VOID_ITEM,
-  GET_SERVER_CHECKS
+  GET_SERVER_CHECKS,
+  GET_CLOSED_CHECK_BY_ID
 } from "./types";
 import { BASE_URL, requestConfig } from "../config";
 import { getTableNumber } from "./util";
@@ -133,8 +134,7 @@ const voidItem = (item, checkId, index) => async dispatch => {
       requestConfig
     );
     const checkUpdates = response.data;
-    console.log("checkUpdates", checkUpdates);
-    // TODO: VOID ITEM is removing every item w/ same name
+
     return dispatch({
       type: VOID_ITEM,
       checkId,
@@ -155,7 +155,6 @@ const getServerChecks = () => async (dispatch, getState) => {
     const { tables } = getState();
     const { allTables } = tables;
 
-    // const currentTable = await closedTables.find(table => table.id === tableId);
     const openChecks = openChecksFromServer.map(openCheck => {
       return {
         ...openCheck,
@@ -180,11 +179,42 @@ const getServerChecks = () => async (dispatch, getState) => {
   }
 };
 
+const getClosedCheckById = checkId => async (dispatch, getState) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}/checks/${checkId}`,
+      requestConfig
+    );
+    const checkFromServer = response.data;
+
+    const { checks } = getState();
+    const { closedChecks } = checks;
+
+    const currentCheckFromStore = closedChecks.find(
+      check => check.id === checkId
+    );
+
+    const currentCheck = {
+      ...checkFromServer,
+      orderedItems: currentCheckFromStore.orderedItems,
+      tableNumber: currentCheckFromStore.tableNumber
+    };
+
+    return dispatch({
+      type: GET_CLOSED_CHECK_BY_ID,
+      currentCheck
+    });
+  } catch (error) {
+    console.error("getCheckById redux error", error);
+  }
+};
+
 export {
   getTables,
   startNewCheck,
   addMenuItem,
   closeCheck,
   voidItem,
-  getServerChecks
+  getServerChecks,
+  getClosedCheckById
 };
