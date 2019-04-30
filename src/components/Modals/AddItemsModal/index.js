@@ -3,8 +3,6 @@ import Modal from "../../BaseModal";
 import { ModalButton } from "../../BaseModal/styles";
 import {
   LIGHT_GREY,
-  AVERO_ICON_BLUE,
-  AVERO_ICON_GREEN,
   AVERO_ICON_RED,
   RED,
   AVERO_GREEN
@@ -19,13 +17,7 @@ import {
   ItemName,
   ItemPrice
 } from "./styles";
-import {
-  Container,
-  GridContainer,
-  Row,
-  Column,
-  Section
-} from "../../../styles/layout";
+import { Row, Column } from "../../../styles/layout";
 
 const AddItemsModal = ({
   show,

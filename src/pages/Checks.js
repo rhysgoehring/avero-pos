@@ -13,12 +13,17 @@ import { ItemRow as CheckRow } from "../components/Modals/AddItemsModal/styles";
 import { CheckSectionTitle } from "../styles/typography";
 import { ModalButton as ViewCheckButton } from "../components/BaseModal/styles";
 import { AVERO_BLUE } from "../styles/colors";
+import ViewCheckModal from "../components/Modals/ViewCheckModal";
 
 class Checks extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      showViewCheckModal: false,
+      activeTableNumber: "",
+      activeTableOpenDate: ""
+    };
   }
 
   componentDidMount() {
@@ -30,8 +35,19 @@ class Checks extends React.Component {
     // console.log("CHECKS PAGE, fetchChecks response", response);
   };
 
-  viewCheckDetails = check => {
-    console.log("clicked viewCheckDetails button");
+  showViewCheckModal = check => {
+    console.log("showViewCheckModal, check", check);
+    this.setState({
+      showViewCheckModal: true,
+      activeTableNumber: check.tableNumber,
+      activeTableOpenDate: check.dateCreated
+    });
+  };
+
+  hideViewCheckModal = () => {
+    this.setState({
+      showViewCheckModal: false
+    });
   };
 
   renderClosedChecks = () => {
@@ -48,7 +64,7 @@ class Checks extends React.Component {
             width="10%"
             fontSize="1.5rem"
             buttonColor={AVERO_BLUE}
-            onClick={() => this.viewCheckDetails(check)}
+            onClick={() => this.showViewCheckModal(check)}
             margin="0 0 3px 0"
           >
             View Check
@@ -89,8 +105,18 @@ class Checks extends React.Component {
   };
 
   render() {
+    const {
+      showViewCheckModal,
+      activeTableNumber,
+      activeTableOpenDate
+    } = this.state;
     return (
       <Section>
+        <ViewCheckModal
+          show={showViewCheckModal}
+          close={this.hideViewCheckModal}
+          modalTitle={`Check for Table ${activeTableNumber}, Opened On ${activeTableOpenDate}`}
+        />
         <Container
           marginTop="1rem"
           height="42vh"
