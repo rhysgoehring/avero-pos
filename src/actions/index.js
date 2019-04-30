@@ -10,6 +10,7 @@ import {
   GET_SERVER_CHECKS
 } from "./types";
 import { BASE_URL, requestConfig } from "../config";
+import { getTableNumber } from "./util";
 
 const getTables = () => async dispatch => {
   try {
@@ -52,9 +53,9 @@ const addMenuItem = (item, tableId) => async (dispatch, getState) => {
 
   const { openChecks } = checks;
   const { closedTables } = tables;
-  console.log("closedTables", closedTables);
+
   const currentTable = await closedTables.find(table => table.id === tableId);
-  console.log("currentTable", currentTable);
+
   const tableNumber = currentTable.number;
   const currentCheck = await openChecks.find(
     check => check.tableId === tableId
@@ -149,20 +150,29 @@ const getServerChecks = () => async (dispatch, getState) => {
     const { data } = await axios.get(`${BASE_URL}/checks`, requestConfig);
     const openChecksFromServer = data.filter(check => !check.closed);
     const closedChecksFromServer = data.filter(check => check.closed);
-    console.log("checks from server", data);
-    const { checks } = getState();
-    const { openChecks, closedChecks } = checks;
 
-    const mergedOpenChecks = openChecks.filter(check =>
-      openChecksFromServer.find(openCheck => check.id === openCheck.id)
-    );
-    const mergedClosedChecks = closedChecks.filter(check =>
-      closedChecksFromServer.find(closedCheck => check.id === closedCheck.id)
-    );
-    dispatch({
+    const { tables } = getState();
+    const { allTables } = tables;
+
+    // const currentTable = await closedTables.find(table => table.id === tableId);
+    const openChecks = openChecksFromServer.map(openCheck => {
+      return {
+        ...openCheck,
+        tableNumber: getTableNumber(allTables, openCheck.tableId)
+      };
+    });
+
+    const closedChecks = closedChecksFromServer.map(closedCheck => {
+      return {
+        ...closedCheck,
+        tableNumber: getTableNumber(allTables, closedCheck.tableId)
+      };
+    });
+
+    return dispatch({
       type: GET_SERVER_CHECKS,
-      mergedOpenChecks,
-      mergedClosedChecks
+      openChecks,
+      closedChecks
     });
   } catch (error) {
     console.error("getServerChecks redux error", error);

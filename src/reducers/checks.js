@@ -76,8 +76,8 @@ export default function(
       return {
         ...state,
         checksFromServer: {
-          openChecks: action.mergedOpenChecks,
-          closedChecks: action.mergedClosedChecks
+          openChecks: action.openChecks,
+          closedChecks: action.closedChecks
         }
       };
     default:
