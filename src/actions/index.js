@@ -132,7 +132,8 @@ const voidItem = (item, checkId) => async dispatch => {
       requestConfig
     );
     const checkUpdates = response.data;
-
+    console.log("checkUpdates", checkUpdates);
+    // TODO: VOID ITEM is removing every item w/ same name
     return dispatch({
       type: VOID_ITEM,
       checkId,
@@ -143,13 +144,25 @@ const voidItem = (item, checkId) => async dispatch => {
   }
 };
 
-const getServerChecks = () => async dispatch => {
+const getServerChecks = () => async (dispatch, getState) => {
   try {
-    const response = await axios.get(`${BASE_URL}/checks`, requestConfig);
-    console.log("getServerChecks response", response);
-    // TODO: Merge check properties that aren't present in response
+    const { data } = await axios.get(`${BASE_URL}/checks`, requestConfig);
+    const openChecksFromServer = data.filter(check => !check.closed);
+    const closedChecksFromServer = data.filter(check => check.closed);
+    console.log("checks from server", data);
+    const { checks } = getState();
+    const { openChecks, closedChecks } = checks;
+
+    const mergedOpenChecks = openChecks.filter(check =>
+      openChecksFromServer.find(openCheck => check.id === openCheck.id)
+    );
+    const mergedClosedChecks = closedChecks.filter(check =>
+      closedChecksFromServer.find(closedCheck => check.id === closedCheck.id)
+    );
     dispatch({
-      type: GET_SERVER_CHECKS
+      type: GET_SERVER_CHECKS,
+      mergedOpenChecks,
+      mergedClosedChecks
     });
   } catch (error) {
     console.error("getServerChecks redux error", error);

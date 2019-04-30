@@ -10,7 +10,10 @@ export default function(
   state = {
     openChecks: [],
     closedChecks: [],
-    checksFromServer: []
+    checksFromServer: {
+      openChecks: [],
+      closedChecks: []
+    }
   },
   action
 ) {
@@ -71,7 +74,11 @@ export default function(
     }
     case GET_SERVER_CHECKS:
       return {
-        ...state
+        ...state,
+        checksFromServer: {
+          openChecks: action.mergedOpenChecks,
+          closedChecks: action.mergedClosedChecks
+        }
       };
     default:
       return {

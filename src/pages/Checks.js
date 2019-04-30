@@ -27,7 +27,7 @@ class Checks extends React.Component {
 
   fetchChecksFromServer = async () => {
     const response = await this.props.getServerChecks();
-    console.log("CHECKS PAGE, fetchChecks response", response);
+    // console.log("CHECKS PAGE, fetchChecks response", response);
   };
 
   viewCheckDetails = check => {
@@ -155,9 +155,9 @@ class Checks extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    checksFromServer: state.checks.checksFromServer,
-    openChecks: state.checks.openChecks,
-    closedChecks: state.checks.closedChecks,
+    // checksFromServer: state.checks.checksFromServer,
+    openChecks: state.checks.checksFromServer.openChecks,
+    closedChecks: state.checks.checksFromServer.closedChecks,
     tables: state.tables
   };
 };

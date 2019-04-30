@@ -75,19 +75,6 @@ class Tables extends React.Component {
     }
   }
 
-  async fetchTables() {
-    await this.props.getTables();
-    this.setState({
-      openTables: this.props.tables.openTables,
-      closedTables: this.props.tables.closedTables
-    });
-  }
-
-  async fetchMenuItems() {
-    const { data } = await axios.get(`${BASE_URL}/items`, requestConfig);
-    this.setState({ menuItems: data });
-  }
-
   checkIfTableIsOpen = table => {
     if (this.props.tables.closedTables.includes(table)) {
       return true;
@@ -105,15 +92,16 @@ class Tables extends React.Component {
     });
   };
 
-  showItemsModal = table => {
-    const checkForTable = this.props.openChecks.find(
+  showItemsModal = async table => {
+    const checkForTable = await this.props.openChecks.find(
       check => check.tableId === table.id
     );
     const checkId = checkForTable.id;
-
+    console.log("table, ", table);
     this.setState({
       showItemsModal: true,
       activeTableId: table.id,
+      activeTableNumber: table.number,
       activeCheckId: checkId,
       activeCheckItems: checkForTable.orderedItems
     });
@@ -131,23 +119,6 @@ class Tables extends React.Component {
   handleCloseCurrentCheck = table => {
     this.props.closeCheck(table);
   };
-
-  renderTables() {
-    return this.props.tables.allTables.map((table, index) => {
-      return (
-        <Column col="2.4" key={table.number}>
-          <TableCard
-            tableIsOpen={this.checkIfTableIsOpen(table)}
-            cardTitle={`Table ${table.number}`}
-            handleNewCheckClick={() => this.newCheckClickHandler(table)}
-            handleAddItem={() => this.showItemsModal(table)}
-            handleViewCheck={() => this.handleViewCurrentCheck(table, index)}
-            handleCloseCheck={() => this.handleCloseCurrentCheck(table)}
-          />
-        </Column>
-      );
-    });
-  }
 
   itemClickHandler = async item => {
     const tableId = this.state.activeTableId;
@@ -188,6 +159,36 @@ class Tables extends React.Component {
       return total;
     }
   };
+
+  async fetchTables() {
+    await this.props.getTables();
+    this.setState({
+      openTables: this.props.tables.openTables,
+      closedTables: this.props.tables.closedTables
+    });
+  }
+
+  async fetchMenuItems() {
+    const { data } = await axios.get(`${BASE_URL}/items`, requestConfig);
+    this.setState({ menuItems: data });
+  }
+
+  renderTables() {
+    return this.props.tables.allTables.map((table, index) => {
+      return (
+        <Column col="2.4" key={table.number}>
+          <TableCard
+            tableIsOpen={this.checkIfTableIsOpen(table)}
+            cardTitle={`Table ${table.number}`}
+            handleNewCheckClick={() => this.newCheckClickHandler(table)}
+            handleAddItem={() => this.showItemsModal(table)}
+            handleViewCheck={() => this.handleViewCurrentCheck(table, index)}
+            handleCloseCheck={() => this.handleCloseCurrentCheck(table)}
+          />
+        </Column>
+      );
+    });
+  }
 
   render() {
     return (
