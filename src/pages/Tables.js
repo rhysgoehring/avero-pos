@@ -97,7 +97,7 @@ class Tables extends React.Component {
       check => check.tableId === table.id
     );
     const checkId = checkForTable.id;
-    console.log("table, ", table);
+
     this.setState({
       showItemsModal: true,
       activeTableId: table.id,
@@ -132,12 +132,8 @@ class Tables extends React.Component {
   };
 
   handleVoidItem = async (item, index) => {
-    const response = await this.props.voidItem(
-      item,
-      this.state.activeCheckId,
-      index
-    );
-    console.log("handleVoid response", response);
+    await this.props.voidItem(item, this.state.activeCheckId, index);
+
     this.setState(state => {
       const activeCheckItems = state.activeCheckItems.map((checkItem, i) => {
         if (index === i) {
@@ -156,12 +152,12 @@ class Tables extends React.Component {
     });
   };
 
-  calculateTotal = () => {
+  calculateSubTotal = () => {
     if (this.state.activeCheckItems.length > 0) {
-      const total = this.state.activeCheckItems
+      const subTotal = this.state.activeCheckItems
         .map(item => parseFloat(item.price, 10))
         .reduce((a, b) => a + b);
-      return total;
+      return subTotal;
     }
   };
 
@@ -201,7 +197,7 @@ class Tables extends React.Component {
         <AddItemsModal
           show={this.state.showItemsModal}
           // show={true}
-          checkTotal={this.calculateTotal()}
+          checkTotal={this.calculateSubTotal()}
           close={this.hideItemsModal}
           modalTitle={`Table ${this.state.activeTableNumber}`}
           menuItems={this.state.menuItems}
@@ -232,5 +228,11 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getTables, startNewCheck, addMenuItem, closeCheck, voidItem }
+  {
+    getTables,
+    startNewCheck,
+    addMenuItem,
+    closeCheck,
+    voidItem
+  }
 )(Tables);

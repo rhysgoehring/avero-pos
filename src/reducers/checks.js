@@ -3,7 +3,7 @@ import {
   ADD_MENU_ITEM,
   CLOSE_CHECK,
   VOID_ITEM,
-  GET_SERVER_CHECKS
+  GET_SERVER_CHECKS,
 } from "../actions/types";
 
 export default function(

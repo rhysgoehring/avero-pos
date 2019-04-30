@@ -36,14 +36,14 @@ class Checks extends React.Component {
 
   renderClosedChecks = () => {
     return this.props.closedChecks.map(check => {
-      console.log("closedCheck", check);
+      const checkTotal = check.tax / 0.08 + check.tip;
       return (
-        <CheckRow>
+        <CheckRow key={check.id}>
           <CheckRowItem>{check.dateUpdated}</CheckRowItem>
           <CheckRowItem>{check.tableNumber}</CheckRowItem>
           <CheckRowItem>{check.tax}</CheckRowItem>
           <CheckRowItem>{check.tip}</CheckRowItem>
-          <CheckRowItem>Total</CheckRowItem>
+          <CheckRowItem>{checkTotal}</CheckRowItem>
           <ViewCheckButton
             width="10%"
             fontSize="1.5rem"
@@ -62,10 +62,10 @@ class Checks extends React.Component {
     return this.props.openChecks.map(check => {
       console.log("openCheck", check);
       return (
-        <CheckRow>
+        <CheckRow key={check.id}>
+          <CheckRowItem>{check.dateCreated}</CheckRowItem>
           <CheckRowItem>{check.dateUpdated}</CheckRowItem>
           <CheckRowItem>{check.tableNumber}</CheckRowItem>
-          <CheckRowItem>Total</CheckRowItem>
           <ViewCheckButton
             width="10%"
             fontSize="1.5rem"
@@ -131,9 +131,9 @@ class Checks extends React.Component {
           <CheckSectionContainer>
             <CheckSection>
               <CheckRow>
-                <CheckRowItem>Date</CheckRowItem>
+                <CheckRowItem>Opened On</CheckRowItem>
+                <CheckRowItem>Updated On</CheckRowItem>
                 <CheckRowItem>Table Number</CheckRowItem>
-                <CheckRowItem>Total</CheckRowItem>
                 <ViewCheckButton
                   width="10%"
                   fontSize="1.5rem"
