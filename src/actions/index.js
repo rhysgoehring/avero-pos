@@ -124,7 +124,7 @@ const closeCheck = table => async (dispatch, getState) => {
   });
 };
 
-const voidItem = (item, checkId) => async dispatch => {
+const voidItem = (item, checkId, index) => async dispatch => {
   const { orderedItemId } = item;
   try {
     const response = await axios.put(
@@ -138,7 +138,8 @@ const voidItem = (item, checkId) => async dispatch => {
     return dispatch({
       type: VOID_ITEM,
       checkId,
-      checkUpdates
+      checkUpdates,
+      index
     });
   } catch (error) {
     console.error("voidItem action error", error);

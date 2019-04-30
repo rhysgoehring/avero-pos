@@ -131,11 +131,16 @@ class Tables extends React.Component {
     });
   };
 
-  handleVoidItem = async item => {
-    await this.props.voidItem(item, this.state.activeCheckId);
+  handleVoidItem = async (item, index) => {
+    const response = await this.props.voidItem(
+      item,
+      this.state.activeCheckId,
+      index
+    );
+    console.log("handleVoid response", response);
     this.setState(state => {
-      const activeCheckItems = state.activeCheckItems.map(checkItem => {
-        if (checkItem.id === item.id) {
+      const activeCheckItems = state.activeCheckItems.map((checkItem, i) => {
+        if (index === i) {
           return {
             ...checkItem,
             voided: true,
@@ -202,7 +207,9 @@ class Tables extends React.Component {
           menuItems={this.state.menuItems}
           currentCheckItems={this.state.activeCheckItems}
           handleItemClick={item => this.itemClickHandler(item)}
-          handleVoidItemClick={item => this.handleVoidItem(item)}
+          handleVoidItemClick={(item, index) =>
+            this.handleVoidItem(item, index)
+          }
         />
         <Container>
           <SubHeading>Tables</SubHeading>

@@ -57,8 +57,8 @@ export default function(
             return {
               ...check,
               dateUpdated: action.checkUpdates.dateUpdated,
-              orderedItems: check.orderedItems.map(item => {
-                if (item.id === action.checkUpdates.itemId) {
+              orderedItems: check.orderedItems.map((item, index) => {
+                if (index === action.index) {
                   return {
                     ...item,
                     voided: true

@@ -79,7 +79,7 @@ const AddItemsModal = ({
       </ModalSection>
       <ModalSection alignSelf="start">
         <ColumnTitle>Current Check Total: ${checkTotal}</ColumnTitle>
-        {currentCheckItems.map(item => {
+        {currentCheckItems.map((item, index) => {
           return (
             <ItemRow key={item.orderedItemId}>
               <ItemName
@@ -96,7 +96,7 @@ const AddItemsModal = ({
                   width="9rem"
                   fontSize="1rem"
                   buttonColor={AVERO_ICON_RED}
-                  onClick={() => handleVoidItemClick(item)}
+                  onClick={() => handleVoidItemClick(item, index)}
                   margin="0"
                 >
                   VOID
