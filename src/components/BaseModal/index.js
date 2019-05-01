@@ -19,7 +19,7 @@ const Modal = ({
         onClick={handleClose}
         margin="0.5rem 0"
       >
-        Close
+        Back
       </ModalButton>
     </ModalSection>
   </ModalContainer>

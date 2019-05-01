@@ -86,7 +86,7 @@ const OpenCheckModal = ({
               {!item.voided ? (
                 <ModalButton
                   width="9rem"
-                  fontSize="1rem"
+                  fontSize="1.3rem"
                   buttonColor={AVERO_ICON_RED}
                   onClick={() => handleVoidItemClick(item, index)}
                   margin="0"
