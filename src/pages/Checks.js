@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import { connect } from "react-redux";
 import {
   getServerChecks,
@@ -77,7 +78,9 @@ class Checks extends React.Component {
       const checkTotal = roundNumber(tax / 0.08 + tip + tax, 2);
       return (
         <CheckRow key={check.id}>
-          <CheckRowItem flex="0 0 20%">{check.dateUpdated}</CheckRowItem>
+          <CheckRowItem flex="0 0 20%">
+            {moment(check.dateUpdated).format("MMMM Do YYYY, h:mm:ss")}
+          </CheckRowItem>
           <CheckRowItem flex="0 0 10%">{check.tableNumber}</CheckRowItem>
           <CheckRowItem flex="0 0 10%">{tax.toFixed(2)}</CheckRowItem>
           <CheckRowItem flex="0 0 10%">{tip.toFixed(2)}</CheckRowItem>
@@ -101,8 +104,12 @@ class Checks extends React.Component {
       console.log("openCheck", check);
       return (
         <CheckRow key={check.id}>
-          <CheckRowItem flex="0 0 20%">{check.dateCreated}</CheckRowItem>
-          <CheckRowItem flex="0 0 20%">{check.dateUpdated}</CheckRowItem>
+          <CheckRowItem flex="0 0 20%">
+            {moment(check.dateCreated).format("MMMM Do YYYY, h:mm:ss")}
+          </CheckRowItem>
+          <CheckRowItem flex="0 0 20%">
+            {moment(check.dateUpdated).format("MMMM Do YYYY, h:mm:ss")}
+          </CheckRowItem>
           <CheckRowItem flex="0 0 10%">{check.tableNumber}</CheckRowItem>
           <ViewCheckButton
             width="10%"
@@ -208,7 +215,9 @@ class Checks extends React.Component {
         <ViewCheckModal
           show={showViewCheckModal}
           close={this.hideViewCheckModal}
-          modalTitle={`Table ${activeTableNumber}, Opened On ${activeTableOpenDate}`}
+          modalTitle={`Table ${activeTableNumber}, Opened On ${moment(
+            activeTableOpenDate
+          ).format("MMMM Do YYYY, h:mm:ss")}`}
           currentCheckItems={activeCheckItems}
           tax={tax}
           tip={tip}
@@ -237,7 +246,7 @@ class Checks extends React.Component {
             <CheckSection>
               <CheckRow>
                 <CheckRowItem bold flex="0 0 20%">
-                  Date
+                  Closed On
                 </CheckRowItem>
                 <CheckRowItem bold flex="0 0 10%">
                   Table Number
@@ -251,15 +260,9 @@ class Checks extends React.Component {
                 <CheckRowItem bold flex="0 0 10%">
                   Total
                 </CheckRowItem>
-                <ViewCheckButton
-                  width="10%"
-                  fontSize="1.5rem"
-                  buttonColor={AVERO_BLUE}
-                  onClick={this.sortClosedChecks}
-                  margin="0 0 3px 0"
-                >
-                  Sort By
-                </ViewCheckButton>
+                <CheckRowItem bold flex="0 0 10%">
+                  View Check
+                </CheckRowItem>
               </CheckRow>
 
               {this.renderClosedChecks()}
@@ -285,15 +288,9 @@ class Checks extends React.Component {
                 <CheckRowItem bold flex="0 0 10%">
                   Table Number
                 </CheckRowItem>
-                <ViewCheckButton
-                  width="10%"
-                  fontSize="1.5rem"
-                  buttonColor={AVERO_BLUE}
-                  onClick={this.sortOpenChecks}
-                  margin="0 0 3px 0"
-                >
-                  Sort By
-                </ViewCheckButton>
+                <CheckRowItem bold flex="0 0 10%">
+                  View Check
+                </CheckRowItem>
               </CheckRow>
               {this.renderOpenChecks()}
             </CheckSection>
