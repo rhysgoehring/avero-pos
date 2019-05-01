@@ -91,9 +91,9 @@ class Checks extends React.Component {
       console.log("openCheck", check);
       return (
         <CheckRow key={check.id}>
-          <CheckRowItem>{check.dateCreated}</CheckRowItem>
-          <CheckRowItem>{check.dateUpdated}</CheckRowItem>
-          <CheckRowItem>{check.tableNumber}</CheckRowItem>
+          <CheckRowItem flex="0 0 20%">{check.dateCreated}</CheckRowItem>
+          <CheckRowItem flex="0 0 20%">{check.dateUpdated}</CheckRowItem>
+          <CheckRowItem flex="0 0 10%">{check.tableNumber}</CheckRowItem>
           <ViewCheckButton
             width="10%"
             fontSize="1.5rem"
@@ -188,9 +188,15 @@ class Checks extends React.Component {
           <CheckSectionContainer>
             <CheckSection>
               <CheckRow>
-                <CheckRowItem>Opened On</CheckRowItem>
-                <CheckRowItem>Updated On</CheckRowItem>
-                <CheckRowItem>Table Number</CheckRowItem>
+                <CheckRowItem bold flex="0 0 20%">
+                  Opened On
+                </CheckRowItem>
+                <CheckRowItem bold flex="0 0 20%">
+                  Updated On
+                </CheckRowItem>
+                <CheckRowItem bold flex="0 0 10%">
+                  Table Number
+                </CheckRowItem>
                 <ViewCheckButton
                   width="10%"
                   fontSize="1.5rem"

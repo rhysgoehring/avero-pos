@@ -18,7 +18,6 @@ import {
   AVERO_GREEN
 } from "../../../styles/colors";
 
-// TODO: Display tax, tip, total under currentCheckItems
 const ViewCheckModal = ({
   show,
   close,
