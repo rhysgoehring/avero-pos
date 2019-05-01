@@ -17,13 +17,6 @@ import {
 } from "../styles/layout";
 import TableCard from "../components/TableCard";
 import OpenCheckModal from "../components/Modals/OpenCheckModal";
-import {
-  AVERO_GREEN,
-  AVERO_ORANGE,
-  AVERO_BLUE,
-  RED,
-  MEDIUM_GREY
-} from "../styles/colors";
 
 class Tables extends React.Component {
   constructor(props) {
