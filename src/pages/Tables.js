@@ -161,18 +161,18 @@ class Tables extends React.Component {
     }
   };
 
-  async fetchTables() {
+  fetchTables = async () => {
     await this.props.getTables();
     this.setState({
       openTables: this.props.tables.openTables,
       closedTables: this.props.tables.closedTables
     });
-  }
+  };
 
-  async fetchMenuItems() {
+  fetchMenuItems = async () => {
     const { data } = await axios.get(`${BASE_URL}/items`, requestConfig);
     this.setState({ menuItems: data });
-  }
+  };
 
   renderTables() {
     return this.props.tables.allTables.map((table, index) => {
