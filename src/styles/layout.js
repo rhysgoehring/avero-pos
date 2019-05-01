@@ -95,7 +95,8 @@ const CheckSection = styled.div`
 const CheckRowItem = styled.p`
   font-size: 1.6rem;
   padding-left: 0.5rem;
-  flex: 0 0 10%;
+  flex: ${({ flex }) => flex};
+  font-weight: ${({ bold }) => (bold ? "bold" : "none")};
 `;
 
 // const CheckTable = styled.p`
