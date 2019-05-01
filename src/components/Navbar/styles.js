@@ -38,12 +38,13 @@ const NavItem = styled.li`
 
 const Link = styled(NavLink)`
   font-size: 1.6rem;
-  color: ${MEDIUM_GREY};
+  color: white;
   margin: 0rem 5rem;
-  text-decoration: none;
+  text-decoration: underline;
 
   &.active {
-    color: white;
+    color: ${MEDIUM_GREY};
+    text-decoration: none;
   }
 `;
 
