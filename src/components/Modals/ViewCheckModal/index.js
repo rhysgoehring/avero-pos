@@ -40,7 +40,12 @@ const ViewCheckModal = ({
         <ModalTitle>{modalTitle}</ModalTitle>
       </ModalHeader>
       <ModalContainer flexDirection="column">
-        <ModalSection borderRight="none" width="100%" alignSelf="start">
+        <ModalSection
+          height="auto"
+          borderRight="none"
+          width="100%"
+          alignSelf="start"
+        >
           <ItemRow>
             <ItemColumnTitle flex="0 0 50%">Item</ItemColumnTitle>
             <ItemColumnTitle flex="0 0 33%">Price</ItemColumnTitle>
@@ -70,7 +75,7 @@ const ViewCheckModal = ({
           </ItemRow>
           <ItemRow>
             <ItemColumnTitle flex="0 0 50%">Total</ItemColumnTitle>
-            <ItemPrice>{total}</ItemPrice>
+            <ItemPrice>{total.toString()}</ItemPrice>
           </ItemRow>
         </ModalSection>
       </ModalContainer>

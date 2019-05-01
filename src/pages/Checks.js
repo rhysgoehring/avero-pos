@@ -118,8 +118,9 @@ class Checks extends React.Component {
       activeTableNumber,
       activeTableOpenDate,
       activeCheckItems,
-      activeCheck,
+      activeCheck
     } = this.state;
+    const total = activeCheck.tax / 0.08 + activeCheck.tip;
     return (
       <Section>
         <ViewCheckModal
@@ -129,7 +130,7 @@ class Checks extends React.Component {
           currentCheckItems={activeCheckItems}
           tax={activeCheck.tax}
           tip={activeCheck.tip}
-          total={activeCheck.tax / 0.08 + activeCheck.tip}
+          total={total}
         />
         <Container
           marginTop="1rem"

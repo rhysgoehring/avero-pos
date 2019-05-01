@@ -11,7 +11,7 @@ import {
   GET_CLOSED_CHECK_BY_ID
 } from "./types";
 import { BASE_URL, requestConfig } from "../config";
-import { getTableNumber } from "./util";
+import { getTableNumber } from "../util";
 
 const getTables = () => async dispatch => {
   try {
