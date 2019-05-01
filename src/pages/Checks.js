@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { getServerChecks, getClosedCheckById } from "../actions";
+import {
+  getServerChecks,
+  getCheckById,
+  voidItem,
+  addMenuItem
+} from "../actions";
 import {
   Section,
   Container,
@@ -13,6 +18,7 @@ import { CheckSectionTitle } from "../styles/typography";
 import { ModalButton as ViewCheckButton } from "../components/BaseModal/styles";
 import { AVERO_BLUE } from "../styles/colors";
 import ViewCheckModal from "../components/Modals/ViewCheckModal";
+import OpenCheckModal from "../components/Modals/OpenCheckModal";
 import { roundNumber } from "../util";
 
 class Checks extends React.Component {
@@ -21,11 +27,13 @@ class Checks extends React.Component {
 
     this.state = {
       showViewCheckModal: false,
+      showOpenCheckModal: false,
       activeTableNumber: "",
       activeTableOpenDate: "",
       activeCheckId: "",
       activeCheckItems: [],
-      activeCheck: {}
+      activeCheck: {},
+      menuItems: this.props.menuItems
     };
   }
 
@@ -35,12 +43,11 @@ class Checks extends React.Component {
 
   fetchChecksFromServer = async () => {
     await this.props.getServerChecks();
-    // console.log("CHECKS PAGE, fetchChecks response", response);
   };
 
   showViewCheckModal = async check => {
-    const { currentCheck } = await this.props.getClosedCheckById(check.id);
-    console.log("RESPONSE", currentCheck);
+    const { currentCheck } = await this.props.getCheckById(check.id);
+
     this.setState({
       showViewCheckModal: true,
       activeTableNumber: check.tableNumber,
@@ -53,7 +60,13 @@ class Checks extends React.Component {
 
   hideViewCheckModal = () => {
     this.setState({
-      showViewCheckModal: false
+      showViewCheckModal: false,
+      activeTableNumber: "",
+      activeTableOpenDate: "",
+      activeTableId: "",
+      activeCheckId: "",
+      activeCheckItems: [],
+      activeCheck: {}
     });
   };
 
@@ -105,6 +118,64 @@ class Checks extends React.Component {
     });
   };
 
+  showOpenCheckModal = async check => {
+    // TODO: Fire redux action to get openChecksById
+    const { currentCheck } = await this.props.getCheckById(check.id);
+    this.setState({
+      showOpenCheckModal: true,
+      activeTableNumber: check.tableNumber,
+      activeTableId: check.tableId,
+      activeTableOpenDate: check.dateCreated,
+      activeCheckId: check.id,
+      activeCheckItems: currentCheck.orderedItems,
+      activeCheck: currentCheck
+    });
+  };
+
+  hideOpenCheckModal = () => {
+    this.setState({
+      showOpenCheckModal: false,
+      activeTableId: "",
+      activeTableNumber: "",
+      activeTableOpenDate: "",
+      activeCheckId: "",
+      activeCheckItems: [],
+      activeCheck: {}
+    });
+  };
+
+  itemClickHandler = async item => {
+    const tableId = this.state.activeTableId;
+
+    const { newItem } = await this.props.addMenuItem(item, tableId);
+
+    // TODO: Use state callback like in handleVoidItem
+    this.setState({
+      activeCheckItems: [...this.state.activeCheckItems, newItem]
+    });
+  };
+
+  handleVoidItem = async (item, index) => {
+    await this.props.voidItem(item, this.state.activeCheckId, index);
+
+    this.setState(state => {
+      const activeCheckItems = state.activeCheckItems.map((checkItem, i) => {
+        if (index === i) {
+          return {
+            ...checkItem,
+            voided: true,
+            price: 0
+          };
+        } else {
+          return checkItem;
+        }
+      });
+      return {
+        activeCheckItems
+      };
+    });
+  };
+
   sortClosedChecks = () => {
     console.log("sortClosedChecks clicked");
   };
@@ -113,13 +184,23 @@ class Checks extends React.Component {
     console.log("sortOpenChecks clicked");
   };
 
+  calculateSubTotal = () => {
+    if (this.state.activeCheckItems.length > 0) {
+      const subTotal = this.state.activeCheckItems
+        .map(item => parseFloat(item.price, 10))
+        .reduce((a, b) => a + b);
+      return subTotal;
+    }
+  };
+
   render() {
     const {
       showViewCheckModal,
       activeTableNumber,
       activeTableOpenDate,
       activeCheckItems,
-      activeCheck
+      activeCheck,
+      showOpenCheckModal
     } = this.state;
     const tip = roundNumber(activeCheck.tip, 2);
     const tax = roundNumber(activeCheck.tax, 2);
@@ -129,11 +210,23 @@ class Checks extends React.Component {
         <ViewCheckModal
           show={showViewCheckModal}
           close={this.hideViewCheckModal}
-          modalTitle={`Check for Table ${activeTableNumber}, Opened On ${activeTableOpenDate}`}
+          modalTitle={`Table ${activeTableNumber}, Opened On ${activeTableOpenDate}`}
           currentCheckItems={activeCheckItems}
           tax={tax}
           tip={tip}
           total={total}
+        />
+        <OpenCheckModal
+          show={showOpenCheckModal}
+          checkTotal={this.calculateSubTotal()}
+          close={this.hideOpenCheckModal}
+          modalTitle={`Table ${this.state.activeTableNumber}`}
+          menuItems={this.state.menuItems}
+          currentCheckItems={this.state.activeCheckItems}
+          handleItemClick={item => this.itemClickHandler(item)}
+          handleVoidItemClick={(item, index) =>
+            this.handleVoidItem(item, index)
+          }
         />
         <Container
           marginTop="1rem"
@@ -215,14 +308,19 @@ class Checks extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    // checksFromServer: state.checks.checksFromServer,
     openChecks: state.checks.checksFromServer.openChecks,
     closedChecks: state.checks.checksFromServer.closedChecks,
-    tables: state.tables
+    tables: state.tables,
+    menuItems: state.menu.menuItems
   };
 };
 
 export default connect(
   mapStateToProps,
-  { getServerChecks, getClosedCheckById }
+  {
+    getServerChecks,
+    getCheckById,
+    voidItem,
+    addMenuItem
+  }
 )(Checks);

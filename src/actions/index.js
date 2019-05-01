@@ -8,10 +8,24 @@ import {
   OPEN_TABLE,
   VOID_ITEM,
   GET_SERVER_CHECKS,
-  GET_CLOSED_CHECK_BY_ID
+  GET_CLOSED_CHECK_BY_ID,
+  GET_MENU_ITEMS,
+  GET_OPEN_CHECK_BY_ID
 } from "./types";
 import { BASE_URL, requestConfig } from "../config";
 import { getTableNumber } from "../util";
+
+const getMenuItems = () => async dispatch => {
+  try {
+    const { data } = await axios.get(`${BASE_URL}/items`, requestConfig);
+    dispatch({
+      type: GET_MENU_ITEMS,
+      data
+    });
+  } catch (error) {
+    console.error("getMenuItems redux action error", error);
+  }
+};
 
 const getTables = () => async dispatch => {
   try {
@@ -179,20 +193,39 @@ const getServerChecks = () => async (dispatch, getState) => {
   }
 };
 
-const getClosedCheckById = checkId => async (dispatch, getState) => {
+const getCheckById = checkId => async (dispatch, getState) => {
   try {
     const response = await axios.get(
       `${BASE_URL}/checks/${checkId}`,
       requestConfig
     );
     const checkFromServer = response.data;
-
     const { checks } = getState();
-    const { closedChecks } = checks;
 
-    const currentCheckFromStore = closedChecks.find(
+    if (checkFromServer.closed) {
+      const { closedChecks } = checks;
+
+      const currentCheckFromStore = closedChecks.find(
+        check => check.id === checkId
+      );
+
+      const currentCheck = {
+        ...checkFromServer,
+        orderedItems: currentCheckFromStore.orderedItems,
+        tableNumber: currentCheckFromStore.tableNumber
+      };
+
+      return dispatch({
+        type: GET_CLOSED_CHECK_BY_ID,
+        currentCheck
+      });
+    }
+    // TODO: Handle openChecks
+    const { openChecks } = checks;
+    const currentCheckFromStore = openChecks.find(
       check => check.id === checkId
     );
+    console.log("currentCheckFromStore", currentCheckFromStore);
 
     const currentCheck = {
       ...checkFromServer,
@@ -201,13 +234,29 @@ const getClosedCheckById = checkId => async (dispatch, getState) => {
     };
 
     return dispatch({
-      type: GET_CLOSED_CHECK_BY_ID,
+      type: GET_OPEN_CHECK_BY_ID,
       currentCheck
     });
   } catch (error) {
     console.error("getCheckById redux error", error);
   }
 };
+
+// const getOpenCheckById = checkId => async (dispatch, getState) => {
+//   try {
+//     const response = await axios.get(
+//       `${BASE_URL}/checks/${checkId}`,
+//       requestConfig
+//     );
+//     const checkFromServer = response.data;
+//     console.log("checkFromServer", checkFromServer);
+//     dispatch({
+//       type: GET_OPEN_CHECK_BY_ID
+//     });
+//   } catch (error) {
+//     console.error("openCheckById redux action error", error);
+//   }
+// };
 
 export {
   getTables,
@@ -216,5 +265,6 @@ export {
   closeCheck,
   voidItem,
   getServerChecks,
-  getClosedCheckById
+  getCheckById,
+  getMenuItems
 };

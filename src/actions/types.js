@@ -7,6 +7,8 @@ const ADD_MENU_ITEM = "add_menu_item";
 const VOID_ITEM = "void_item";
 const GET_SERVER_CHECKS = "get_server_checks";
 const GET_CLOSED_CHECK_BY_ID = "get_closed_check_by_id";
+const GET_OPEN_CHECK_BY_ID = "get_open_check_by_id";
+const GET_MENU_ITEMS = "get_menu_items";
 
 export {
   GET_TABLES,
@@ -17,5 +19,7 @@ export {
   CLOSE_CHECK,
   VOID_ITEM,
   GET_SERVER_CHECKS,
-  GET_CLOSED_CHECK_BY_ID
+  GET_CLOSED_CHECK_BY_ID,
+  GET_OPEN_CHECK_BY_ID,
+  GET_MENU_ITEMS
 };

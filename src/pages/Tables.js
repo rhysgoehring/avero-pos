@@ -1,12 +1,12 @@
 import React from "react";
-import axios from "axios";
 import { connect } from "react-redux";
 import {
   getTables,
   startNewCheck,
   addMenuItem,
   closeCheck,
-  voidItem
+  voidItem,
+  getMenuItems
 } from "../actions/index";
 import {
   Section,
@@ -18,7 +18,6 @@ import {
 import { SubHeading } from "../styles/typography";
 import TableCard from "../components/TableCard";
 import OpenCheckModal from "../components/Modals/OpenCheckModal";
-import { BASE_URL, requestConfig } from "../config";
 import {
   AVERO_GREEN,
   AVERO_ORANGE,
@@ -169,8 +168,8 @@ class Tables extends React.Component {
   };
 
   fetchMenuItems = async () => {
-    const { data } = await axios.get(`${BASE_URL}/items`, requestConfig);
-    this.setState({ menuItems: data });
+    await this.props.getMenuItems();
+    this.setState({ menuItems: this.props.menuItems });
   };
 
   renderTables() {
@@ -206,7 +205,6 @@ class Tables extends React.Component {
           }
         />
         <Container>
-          <SubHeading>Tables</SubHeading>
           <GridContainer>
             <Row>{this.renderTables()}</Row>
           </GridContainer>
@@ -220,7 +218,8 @@ const mapStateToProps = state => {
   return {
     tables: state.tables,
     openChecks: state.checks.openChecks,
-    closedChecks: state.checks.closedChecks
+    closedChecks: state.checks.closedChecks,
+    menuItems: state.menu.menuItems
   };
 };
 
@@ -231,6 +230,7 @@ export default connect(
     startNewCheck,
     addMenuItem,
     closeCheck,
-    voidItem
+    voidItem,
+    getMenuItems
   }
 )(Tables);

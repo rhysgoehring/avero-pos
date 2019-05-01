@@ -70,7 +70,7 @@ const OpenCheckModal = ({
         </Row>
       </ModalSection>
       <ModalSection alignSelf="start">
-        <ColumnTitle>Current Check Total: ${checkTotal}</ColumnTitle>
+        <ColumnTitle>Current Check Subtotal: ${checkTotal}</ColumnTitle>
         {currentCheckItems.map((item, index) => {
           return (
             <ItemRow key={item.orderedItemId}>
