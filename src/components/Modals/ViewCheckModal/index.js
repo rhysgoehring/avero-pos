@@ -10,7 +10,7 @@ import {
   ItemRow,
   ItemName,
   ItemPrice
-} from "../AddItemsModal/styles";
+} from "../OpenCheckModal/styles";
 import {
   LIGHT_GREY,
   AVERO_ICON_RED,

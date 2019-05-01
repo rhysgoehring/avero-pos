@@ -17,8 +17,7 @@ import {
 } from "../styles/layout";
 import { SubHeading } from "../styles/typography";
 import TableCard from "../components/TableCard";
-import Modal from "../components/BaseModal";
-import AddItemsModal from "../components/Modals/AddItemsModal";
+import OpenCheckModal from "../components/Modals/OpenCheckModal";
 import { BASE_URL, requestConfig } from "../config";
 import {
   AVERO_GREEN,
@@ -194,9 +193,8 @@ class Tables extends React.Component {
   render() {
     return (
       <Section>
-        <AddItemsModal
+        <OpenCheckModal
           show={this.state.showItemsModal}
-          // show={true}
           checkTotal={this.calculateSubTotal()}
           close={this.hideItemsModal}
           modalTitle={`Table ${this.state.activeTableNumber}`}

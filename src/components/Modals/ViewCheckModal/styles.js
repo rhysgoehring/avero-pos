@@ -1,5 +1,5 @@
 import styled from "styled-components/macro";
-import { ItemName } from "../AddItemsModal/styles";
+import { ItemName } from "../OpenCheckModal/styles";
 
 const ItemColumnTitle = styled(ItemName)`
   font-weight: bold;

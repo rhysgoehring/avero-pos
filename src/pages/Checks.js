@@ -8,7 +8,7 @@ import {
   CheckSection,
   CheckRowItem
 } from "../styles/layout";
-import { ItemRow as CheckRow } from "../components/Modals/AddItemsModal/styles";
+import { ItemRow as CheckRow } from "../components/Modals/OpenCheckModal/styles";
 import { CheckSectionTitle } from "../styles/typography";
 import { ModalButton as ViewCheckButton } from "../components/BaseModal/styles";
 import { AVERO_BLUE } from "../styles/colors";
@@ -39,8 +39,6 @@ class Checks extends React.Component {
   };
 
   showViewCheckModal = async check => {
-    console.log("showViewCheckModal, check", check);
-    // TODO: Call redux action to get check by id
     const { currentCheck } = await this.props.getClosedCheckById(check.id);
     console.log("RESPONSE", currentCheck);
     this.setState({
@@ -64,7 +62,6 @@ class Checks extends React.Component {
       const tax = roundNumber(check.tax, 2);
       const tip = roundNumber(check.tip, 2);
       const checkTotal = roundNumber(tax / 0.08 + tip + tax, 2);
-      console.log("checkTotal type", typeof checkTotal);
       return (
         <CheckRow key={check.id}>
           <CheckRowItem flex="0 0 20%">{check.dateUpdated}</CheckRowItem>
@@ -98,7 +95,7 @@ class Checks extends React.Component {
             width="10%"
             fontSize="1.5rem"
             buttonColor={AVERO_BLUE}
-            onClick={() => this.viewCheckDetails(check)}
+            onClick={() => this.showOpenCheckModal(check)}
             margin="0 0 3px 0"
           >
             View Check

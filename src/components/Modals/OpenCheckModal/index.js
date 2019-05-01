@@ -19,7 +19,7 @@ import {
 } from "./styles";
 import { Row, Column } from "../../../styles/layout";
 
-const AddItemsModal = ({
+const OpenCheckModal = ({
   show,
   close,
   modalTitle,
@@ -102,4 +102,4 @@ const AddItemsModal = ({
   </Modal>
 );
 
-export default AddItemsModal;
+export default OpenCheckModal;
