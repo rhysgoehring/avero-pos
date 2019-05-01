@@ -75,7 +75,7 @@ const ViewCheckModal = ({
           </ItemRow>
           <ItemRow>
             <ItemColumnTitle flex="0 0 50%">Total</ItemColumnTitle>
-            <ItemPrice>{total.toString()}</ItemPrice>
+            <ItemPrice>{total.toFixed(2).toString()}</ItemPrice>
           </ItemRow>
         </ModalSection>
       </ModalContainer>

@@ -26,7 +26,8 @@ module.exports = {
     'spaced-comment': 0,
     'no-case-declarations': 0,
     'react/no-access-state-in-setstate': 0,
-    'no-else-return': 0
+    'no-else-return': 0,
+    'no-useless-return': 0
   },
   env: {
     browser: true,

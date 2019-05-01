@@ -220,7 +220,6 @@ const getCheckById = checkId => async (dispatch, getState) => {
         currentCheck
       });
     }
-    // TODO: Handle openChecks
     const { openChecks } = checks;
     const currentCheckFromStore = openChecks.find(
       check => check.id === checkId

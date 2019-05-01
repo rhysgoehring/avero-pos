@@ -15,7 +15,6 @@ import {
   Column,
   Row
 } from "../styles/layout";
-import { SubHeading } from "../styles/typography";
 import TableCard from "../components/TableCard";
 import OpenCheckModal from "../components/Modals/OpenCheckModal";
 import {
@@ -31,8 +30,6 @@ class Tables extends React.Component {
     super(props);
 
     this.state = {
-      openTables: [],
-      closedTables: [],
       menuItems: [],
       activeCheckItems: [],
       activeTableId: "",
@@ -48,10 +45,7 @@ class Tables extends React.Component {
     this.fetchMenuItems();
 
     if (openTables.length > 0 || closedTables.length > 0) {
-      this.setState({
-        openTables,
-        closedTables
-      });
+      return;
     } else {
       this.fetchTables();
     }
@@ -61,15 +55,8 @@ class Tables extends React.Component {
     if (
       this.props.tables !== nextProps.tables ||
       this.state.tables !== nextProps.tables
-      // this.state.tables.openTables !== nextProps.tables.openTables
-      // this.state.tables.closedTables !== nextProps.tables.closedTables ||
-      // this.props.tables.openTables !== nextProps.tables.openTables ||
-      // this.props.tables.closedTables !== nextProps.tables.closedTables
     ) {
-      this.setState({
-        openTables: nextProps.tables.openTables,
-        closedTables: nextProps.tables.closedTables
-      });
+      return;
     }
   }
 
@@ -123,7 +110,6 @@ class Tables extends React.Component {
 
     const { newItem } = await this.props.addMenuItem(item, tableId);
 
-    // TODO: Use state callback like in handleVoidItem
     this.setState({
       activeCheckItems: [...this.state.activeCheckItems, newItem]
     });
@@ -161,10 +147,6 @@ class Tables extends React.Component {
 
   fetchTables = async () => {
     await this.props.getTables();
-    this.setState({
-      openTables: this.props.tables.openTables,
-      closedTables: this.props.tables.closedTables
-    });
   };
 
   fetchMenuItems = async () => {

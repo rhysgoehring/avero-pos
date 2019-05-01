@@ -119,7 +119,6 @@ class Checks extends React.Component {
   };
 
   showOpenCheckModal = async check => {
-    // TODO: Fire redux action to get openChecksById
     const { currentCheck } = await this.props.getCheckById(check.id);
     this.setState({
       showOpenCheckModal: true,
@@ -149,7 +148,6 @@ class Checks extends React.Component {
 
     const { newItem } = await this.props.addMenuItem(item, tableId);
 
-    // TODO: Use state callback like in handleVoidItem
     this.setState({
       activeCheckItems: [...this.state.activeCheckItems, newItem]
     });

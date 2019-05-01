@@ -53,7 +53,7 @@ const ItemRow = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid black;
   width: 100%;
-  padding: 0.5rem 0.5rem;
+  padding: 0.4rem 0.5rem;
 `;
 
 const ItemName = styled.p`
