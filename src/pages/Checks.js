@@ -101,7 +101,6 @@ class Checks extends React.Component {
 
   renderOpenChecks = () => {
     return this.props.openChecks.map(check => {
-      console.log("openCheck", check);
       return (
         <CheckRow key={check.id}>
           <CheckRowItem flex="0 0 20%">
@@ -181,14 +180,6 @@ class Checks extends React.Component {
     });
   };
 
-  sortClosedChecks = () => {
-    console.log("sortClosedChecks clicked");
-  };
-
-  sortOpenChecks = () => {
-    console.log("sortOpenChecks clicked");
-  };
-
   calculateSubTotal = () => {
     if (this.state.activeCheckItems.length > 0) {
       const subTotal = this.state.activeCheckItems
@@ -264,7 +255,6 @@ class Checks extends React.Component {
                   View Check
                 </CheckRowItem>
               </CheckRow>
-
               {this.renderClosedChecks()}
             </CheckSection>
           </CheckSectionContainer>

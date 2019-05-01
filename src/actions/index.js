@@ -224,7 +224,6 @@ const getCheckById = checkId => async (dispatch, getState) => {
     const currentCheckFromStore = openChecks.find(
       check => check.id === checkId
     );
-    console.log("currentCheckFromStore", currentCheckFromStore);
 
     const currentCheck = {
       ...checkFromServer,
@@ -240,22 +239,6 @@ const getCheckById = checkId => async (dispatch, getState) => {
     console.error("getCheckById redux error", error);
   }
 };
-
-// const getOpenCheckById = checkId => async (dispatch, getState) => {
-//   try {
-//     const response = await axios.get(
-//       `${BASE_URL}/checks/${checkId}`,
-//       requestConfig
-//     );
-//     const checkFromServer = response.data;
-//     console.log("checkFromServer", checkFromServer);
-//     dispatch({
-//       type: GET_OPEN_CHECK_BY_ID
-//     });
-//   } catch (error) {
-//     console.error("openCheckById redux action error", error);
-//   }
-// };
 
 export {
   getTables,
