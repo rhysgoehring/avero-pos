@@ -60,18 +60,18 @@ const ViewCheckModal = ({
                   {item.name}
                 </ItemName>
                 <ItemPrice color={item.voided ? `${RED}` : "black"}>
-                  {item.voided ? "VOID" : `${item.price}`}
+                  {item.voided ? "VOID" : `${item.price.toFixed(2)}`}
                 </ItemPrice>
               </ItemRow>
             );
           })}
           <ItemRow>
             <ItemColumnTitle flex="0 0 50%">Tax</ItemColumnTitle>
-            <ItemPrice>{tax}</ItemPrice>
+            <ItemPrice>{tax.toFixed(2).toString()}</ItemPrice>
           </ItemRow>
           <ItemRow>
             <ItemColumnTitle flex="0 0 50%">Tip</ItemColumnTitle>
-            <ItemPrice>{tip}</ItemPrice>
+            <ItemPrice>{tip.toFixed(2).toString()}</ItemPrice>
           </ItemRow>
           <ItemRow>
             <ItemColumnTitle flex="0 0 50%">Total</ItemColumnTitle>

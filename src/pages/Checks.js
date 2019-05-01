@@ -13,6 +13,7 @@ import { CheckSectionTitle } from "../styles/typography";
 import { ModalButton as ViewCheckButton } from "../components/BaseModal/styles";
 import { AVERO_BLUE } from "../styles/colors";
 import ViewCheckModal from "../components/Modals/ViewCheckModal";
+import { roundNumber } from "../util";
 
 class Checks extends React.Component {
   constructor(props) {
@@ -60,13 +61,15 @@ class Checks extends React.Component {
 
   renderClosedChecks = () => {
     return this.props.closedChecks.map(check => {
-      const checkTotal = check.tax / 0.08 + check.tip;
+      const tax = roundNumber(check.tax, 2);
+      const tip = roundNumber(check.tip, 2);
+      const checkTotal = tax / 0.08 + tip + tax;
       return (
         <CheckRow key={check.id}>
           <CheckRowItem>{check.dateUpdated}</CheckRowItem>
           <CheckRowItem>{check.tableNumber}</CheckRowItem>
-          <CheckRowItem>{check.tax}</CheckRowItem>
-          <CheckRowItem>{check.tip}</CheckRowItem>
+          <CheckRowItem>{tax}</CheckRowItem>
+          <CheckRowItem>{tip}</CheckRowItem>
           <CheckRowItem>{checkTotal}</CheckRowItem>
           <ViewCheckButton
             width="10%"
@@ -120,7 +123,9 @@ class Checks extends React.Component {
       activeCheckItems,
       activeCheck
     } = this.state;
-    const total = activeCheck.tax / 0.08 + activeCheck.tip;
+    const tip = roundNumber(activeCheck.tip, 2);
+    const tax = roundNumber(activeCheck.tax, 2);
+    const total = tax / 0.08 + tip + tax;
     return (
       <Section>
         <ViewCheckModal
@@ -128,8 +133,8 @@ class Checks extends React.Component {
           close={this.hideViewCheckModal}
           modalTitle={`Check for Table ${activeTableNumber}, Opened On ${activeTableOpenDate}`}
           currentCheckItems={activeCheckItems}
-          tax={activeCheck.tax}
-          tip={activeCheck.tip}
+          tax={tax}
+          tip={tip}
           total={total}
         />
         <Container
