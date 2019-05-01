@@ -35,6 +35,7 @@ const ModalSection = styled.div`
   width: ${({ width }) => width || "50%"};
   height: ${({ height }) => height || "59.3rem"};
   border-right: ${({ borderRight }) => borderRight || "1px solid black"};
+  max-height: ${({ maxHeight }) => maxHeight};
   overflow-x: hidden;
   overflow-y: auto;
 `;

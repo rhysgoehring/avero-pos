@@ -45,6 +45,7 @@ const ViewCheckModal = ({
           borderRight="none"
           width="100%"
           alignSelf="start"
+          maxHeight="60rem"
         >
           <ItemRow>
             <ItemColumnTitle flex="0 0 50%">Item</ItemColumnTitle>
