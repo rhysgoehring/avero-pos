@@ -23,7 +23,8 @@ class Checks extends React.Component {
       activeTableNumber: "",
       activeTableOpenDate: "",
       activeCheckId: "",
-      activeCheckItems: []
+      activeCheckItems: [],
+      activeCheck: {}
     };
   }
 
@@ -46,7 +47,8 @@ class Checks extends React.Component {
       activeTableNumber: check.tableNumber,
       activeTableOpenDate: check.dateCreated,
       activeCheckId: check.id,
-      activeCheckItems: currentCheck.orderedItems
+      activeCheckItems: currentCheck.orderedItems,
+      activeCheck: currentCheck
     });
   };
 
@@ -114,7 +116,9 @@ class Checks extends React.Component {
     const {
       showViewCheckModal,
       activeTableNumber,
-      activeTableOpenDate
+      activeTableOpenDate,
+      activeCheckItems,
+      activeCheck,
     } = this.state;
     return (
       <Section>
@@ -122,7 +126,10 @@ class Checks extends React.Component {
           show={showViewCheckModal}
           close={this.hideViewCheckModal}
           modalTitle={`Check for Table ${activeTableNumber}, Opened On ${activeTableOpenDate}`}
-          currentCheckItems={this.state.activeCheckItems}
+          currentCheckItems={activeCheckItems}
+          tax={activeCheck.tax}
+          tip={activeCheck.tip}
+          total={activeCheck.tax / 0.08 + activeCheck.tip}
         />
         <Container
           marginTop="1rem"

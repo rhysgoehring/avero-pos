@@ -1,6 +1,7 @@
 import React from "react";
 import Modal from "../../BaseModal";
 import { ModalButton } from "../../BaseModal/styles";
+import { ItemColumnTitle } from "./styles";
 import {
   ModalHeader,
   ModalTitle,
@@ -18,7 +19,15 @@ import {
 } from "../../../styles/colors";
 
 // TODO: Display tax, tip, total under currentCheckItems
-const ViewCheckModal = ({ show, close, modalTitle, currentCheckItems }) => {
+const ViewCheckModal = ({
+  show,
+  close,
+  modalTitle,
+  currentCheckItems,
+  tax,
+  tip,
+  total
+}) => {
   return (
     <Modal
       showModal={show}
@@ -33,12 +42,8 @@ const ViewCheckModal = ({ show, close, modalTitle, currentCheckItems }) => {
       <ModalContainer flexDirection="column">
         <ModalSection borderRight="none" width="100%" alignSelf="start">
           <ItemRow>
-            <ItemName>
-              <strong>Item</strong>
-            </ItemName>
-            <ItemPrice>
-              <strong>Price</strong>
-            </ItemPrice>
+            <ItemColumnTitle flex="0 0 50%">Item</ItemColumnTitle>
+            <ItemColumnTitle flex="0 0 33%">Price</ItemColumnTitle>
           </ItemRow>
           {currentCheckItems.map(item => {
             return (
@@ -55,6 +60,18 @@ const ViewCheckModal = ({ show, close, modalTitle, currentCheckItems }) => {
               </ItemRow>
             );
           })}
+          <ItemRow>
+            <ItemColumnTitle flex="0 0 50%">Tax</ItemColumnTitle>
+            <ItemPrice>{tax}</ItemPrice>
+          </ItemRow>
+          <ItemRow>
+            <ItemColumnTitle flex="0 0 50%">Tip</ItemColumnTitle>
+            <ItemPrice>{tip}</ItemPrice>
+          </ItemRow>
+          <ItemRow>
+            <ItemColumnTitle flex="0 0 50%">Total</ItemColumnTitle>
+            <ItemPrice>{total}</ItemPrice>
+          </ItemRow>
         </ModalSection>
       </ModalContainer>
     </Modal>
