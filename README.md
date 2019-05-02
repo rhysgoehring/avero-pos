@@ -17,7 +17,7 @@
 ## Install dependencies and devDependencies
 
 ```sh
-$ yarn install
+ yarn install
 ```
 
 Or with NPM:
