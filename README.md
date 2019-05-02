@@ -1,17 +1,17 @@
 # Avero Coding Exercise - Greasy Spoon Point of Sale UI
 
 # Running the App
-Clone the Repository
+## Clone the Repository
 ```sh
  git clone https://github.com/rhysgoehring/avero-pos
 ```
 
-Change into project directory
+## Change into project directory
 ```sh
  cd avero-pos
 ```
 
-Install dependencies and devDependencies
+## Install dependencies and devDependencies
 ```sh
 $ yarn install
 ```
