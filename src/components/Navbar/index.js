@@ -15,7 +15,7 @@ const Navbar = () => (
         </NavItem>
 
         <Link exact to="/checks">
-          View All Checks
+          View Checks
         </Link>
       </NavList>
     </NavWrapper>

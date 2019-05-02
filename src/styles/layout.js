@@ -43,8 +43,6 @@ const getFlex = value => {
 };
 
 const GridContainer = styled.div`
-  /* padding-right: 1.5rem;
-  padding-left: 1.5rem; */
   margin-right: auto;
   margin-left: auto;
   width: 100%;
@@ -54,8 +52,6 @@ const Row = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  /* padding-bottom: 2rem; */
-  /* margin-bottom: 2rem; */
 `;
 
 const Column = styled.div`
@@ -63,7 +59,6 @@ const Column = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: center; */
   justify-content: ${({ justifyContent }) => justifyContent || "center"};
 
   ${({ col }) => col && getFlex(col)};
@@ -98,10 +93,6 @@ const CheckRowItem = styled.p`
   flex: ${({ flex }) => flex};
   font-weight: ${({ bold }) => (bold ? "bold" : "none")};
 `;
-
-// const CheckTable = styled.p`
-
-// `;
 
 export {
   Container,

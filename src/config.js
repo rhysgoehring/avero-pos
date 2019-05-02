@@ -1,4 +1,4 @@
-const BASE_URL = "https://check-api.herokuapp.com"
+const BASE_URL = "https://check-api.herokuapp.com";
 
 const requestConfig = {
   headers: {
