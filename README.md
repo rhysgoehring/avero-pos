@@ -19,7 +19,7 @@ Or with NPM:
 ```sh
  npm install
 ```
-Start the App:
+## Start the App:
 ```sh
  yarn start
 ```
