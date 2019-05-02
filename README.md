@@ -15,7 +15,7 @@
 ```sh
 $ yarn install
 ```
-Or with NPM:
+### Or with NPM:
 ```sh
  npm install
 ```
@@ -23,7 +23,7 @@ Or with NPM:
 ```sh
  yarn start
 ```
-or with NPM:
+### or with NPM:
 ```sh
  npm start
 ```
