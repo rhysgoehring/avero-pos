@@ -6,6 +6,11 @@ Clone the Repository
 $ git clone https://github.com/rhysgoehring/avero-pos
 ```
 
+Change into project directory
+```sh
+$ cd avero-pos
+```
+
 Install dependencies and devDependencies
 ```sh
 $ yarn install
