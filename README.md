@@ -55,7 +55,7 @@ These assumptions allowed me to make the following important development decisio
 
 # Planning / Goals
 
-- Going into the project I wanted to keep dependencies to a minimum and not rely on any particular UI Library (material-ui, semantic-ui, etc.) and be responsible for all styling.
+- Going into the project I wanted to keep dependencies to a minimum and not rely on any particular UI Library (material-ui, semantic-ui, etc.) and be responsible for all styling. Since this App is built for utility, I chose to keep colors to a minimum and use greyscale colors more to ensure legibility. I used color when important differentiation was needed such as open and closed tables, voided line items, and buttons.
 - I used Trello to keep track of User Stories outlined in the Business Requirements: https://trello.com/b/tMTnmro7/avero-pos
 - As I was the only developer on the project and occassionally had to stop before completely finishing a user story, rather than adding an issue to the Trello board, I used highlighted TODOs inside my code to easier pick up where I had left off.
 - I used Marvel to design the layout of the Tables page: https://marvelapp.com/6j9ffah/screen/56025437
