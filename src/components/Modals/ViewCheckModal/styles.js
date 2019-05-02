@@ -6,4 +6,4 @@ const ItemColumnTitle = styled(ItemName)`
   flex: ${({ flex }) => flex};
 `;
 
-export { ItemColumnTitle };
+export default ItemColumnTitle;

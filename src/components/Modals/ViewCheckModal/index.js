@@ -1,7 +1,6 @@
 import React from "react";
 import Modal from "../../BaseModal";
-import { ModalButton } from "../../BaseModal/styles";
-import { ItemColumnTitle } from "./styles";
+import ItemColumnTitle from "./styles";
 import {
   ModalHeader,
   ModalTitle,
@@ -11,12 +10,7 @@ import {
   ItemName,
   ItemPrice
 } from "../OpenCheckModal/styles";
-import {
-  LIGHT_GREY,
-  AVERO_ICON_RED,
-  RED,
-  AVERO_GREEN
-} from "../../../styles/colors";
+import { LIGHT_GREY, RED } from "../../../styles/colors";
 
 const ViewCheckModal = ({
   show,

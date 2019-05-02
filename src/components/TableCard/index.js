@@ -9,7 +9,6 @@ import {
 import {
   AVERO_GREEN,
   AVERO_ORANGE,
-  AVERO_BLUE,
   RED,
   MEDIUM_GREY
 } from "../../styles/colors";
