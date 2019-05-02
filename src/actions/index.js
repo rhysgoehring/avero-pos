@@ -63,7 +63,6 @@ const startNewCheck = table => async dispatch => {
 };
 
 const addMenuItem = (item, tableId) => async (dispatch, getState) => {
-  // TODO: Make a function that finds checks by tableId, using this code twice:
   const { checks, tables } = getState();
 
   const { openChecks } = checks;
@@ -77,7 +76,7 @@ const addMenuItem = (item, tableId) => async (dispatch, getState) => {
   );
   const checkId = currentCheck.id;
   const itemId = item.id;
-  // Find Index of current check
+
   try {
     const response = await axios.put(
       `${BASE_URL}/checks/${checkId}/addItem`,
@@ -105,38 +104,42 @@ const addMenuItem = (item, tableId) => async (dispatch, getState) => {
 };
 
 const closeCheck = table => async (dispatch, getState) => {
-  const { checks } = await getState();
+  try {
+    const { checks } = await getState();
 
-  const { openChecks } = checks;
-  const currentTableId = table.id;
-  const currentCheck = await openChecks.find(
-    check => check.tableId === currentTableId
-  );
+    const { openChecks } = checks;
+    const currentTableId = table.id;
+    const currentCheck = await openChecks.find(
+      check => check.tableId === currentTableId
+    );
 
-  const checkId = currentCheck.id;
-  const response = await axios.put(
-    `${BASE_URL}/checks/${checkId}/close`,
-    {},
-    requestConfig
-  );
-  const checkResponse = response.data;
+    const checkId = currentCheck.id;
+    const response = await axios.put(
+      `${BASE_URL}/checks/${checkId}/close`,
+      {},
+      requestConfig
+    );
+    const checkResponse = response.data;
 
-  const closedCheck = {
-    ...checkResponse,
-    orderedItems: currentCheck.orderedItems,
-    tableNumber: currentCheck.tableNumber
-  };
+    const closedCheck = {
+      ...checkResponse,
+      orderedItems: currentCheck.orderedItems,
+      tableNumber: currentCheck.tableNumber
+    };
 
-  dispatch({
-    type: OPEN_TABLE,
-    table
-  });
+    dispatch({
+      type: OPEN_TABLE,
+      table
+    });
 
-  return dispatch({
-    type: CLOSE_CHECK,
-    checkId,
-    closedCheck
-  });
+    return dispatch({
+      type: CLOSE_CHECK,
+      checkId,
+      closedCheck
+    });
+  } catch (error) {
+    console.error("closeCheck redux action error", error);
+  }
 };
 
 const voidItem = (item, checkId, index) => async dispatch => {
