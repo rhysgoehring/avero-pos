@@ -19,7 +19,7 @@ const NavWrapper = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid white;
+  border-bottom: 2px solid black;
 `;
 
 const NavList = styled.ul`
@@ -31,15 +31,12 @@ const NavList = styled.ul`
 `;
 
 const NavItem = styled.li`
-  font-size: 1.6rem;
-  color: white;
-  margin: 0rem 5rem;
+  margin: 0rem 15rem;
 `;
 
 const Link = styled(NavLink)`
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   color: white;
-  margin: 0rem 5rem;
   text-decoration: underline;
 
   &.active {
@@ -48,8 +45,8 @@ const Link = styled(NavLink)`
   }
 `;
 
-const Logo = styled.a`
-  color: white;
+const Logo = styled.p`
+  color: black;
   text-decoration: none;
   font-size: 4rem;
   font-weight: bold;
