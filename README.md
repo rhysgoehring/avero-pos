@@ -3,12 +3,12 @@
 ### Running the App
 Clone the Repository
 ```sh
-$ git clone https://github.com/rhysgoehring/avero-pos
+ git clone https://github.com/rhysgoehring/avero-pos
 ```
 
 Change into project directory
 ```sh
-$ cd avero-pos
+ cd avero-pos
 ```
 
 Install dependencies and devDependencies
@@ -17,15 +17,15 @@ $ yarn install
 ```
 Or with NPM:
 ```sh
-$ npm install
+ npm install
 ```
 Start the App:
 ```sh
-$ yarn start
+ yarn start
 ```
 or with NPM:
 ```sh
-$ npm start
+ npm start
 ```
 
 # Assumptions
